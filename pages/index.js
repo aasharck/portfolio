@@ -34,18 +34,18 @@ export default function Home() {
         </div>
         
         <div className='flex md:hidden'>
-          <div className=' md:ml-3 md:mt-0 mt-3 block bg-black p-3 rounded-xl lg:w-auto w-1/3'>
+          <a href='https://github.com/aasharck' target='blank' className='hover:animate-wiggle md:ml-3 md:mt-0 mt-3 block bg-black p-3 rounded-xl lg:w-auto w-1/3'>
               <Image className='mx-auto mt-1 md:mt-4' alt='github.com/aasharck' src="/github.svg" width={80} height={80} />
-          </div>
-          <div className='flex justify-center items-center bg-white mx-auto mt-3 p-3 rounded-xl w-full h-auto'>
+          </a>
+          <a href='https://docs.google.com/document/d/1g8O8VrkkOag6qaY26GLfar93Jb7sSeaXh8YNl9eSDgg/edit?usp=sharing' target='blank' className='hover:animate-wiggle hover:cursor-pointer flex justify-center items-center bg-white mx-auto mt-3 p-3 rounded-xl w-full h-auto'>
             <div className='text-black font-bold text-2xl'>Résumé</div>
             <span className='mb-3'><Image alt='resume' width={20} height={20} src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAwElEQVR4nO3XTQrCMBDF8bmE4iUDb0gW3ktPYPEC7cLjRBSFLvxom8DMwPtBF92U9y9dpCJEREREROEAuKpq7XEBGCwChl4BqlolkpTSDsAYMiDnvAcwvT6dKVTA/M0DuJVSDmECPo0XEQkR8G18iIBf490H/BvvOmDJeLcBS8e7DFgz3l3A2vGuAraMdxOwdbyLgJbx5gGt400Deow3DVDV8/tI/DgiNzynmgQAOAI4tYyf/dldnjdERERERBLJHXJrTgd+S7SKAAAAAElFTkSuQmCC" /></span>
-          </div>
+          </a>
         </div>
         <div className='flex mt-3'>
         {/* bg-gradient-to-br from-pink-800 to-purple-900 */}
         <div className='block bg-violet-700 w-2/3 rounded-xl p-4 py-auto'>
-          <div className='text-white font-bold text-lg lg:text-2xl'>Audit Findings</div>
+          <div className='text-white font-bold text-lg lg:text-2xl'>Audit Findings<span className='lg:text-sm text-xxs text-slate-300'>&nbsp;&nbsp;(C4 and Sherlock)</span></div>
           <div className='flex mt-4'>
             <div className='w-1/3 font-bold text-black'><span className='text-2xl lg:text-5xl text-white'>3</span><span className='md:text-xl text-xs'>&nbsp;&nbsp;High</span></div>
             <div className='w-1/3 font-bold text-black'><span className='text-2xl lg:text-5xl text-white'>2</span><span className='md:text-xl text-xs'>&nbsp;&nbsp;Med</span></div>
@@ -55,15 +55,15 @@ export default function Home() {
 
           <a href="https://cal.com/aashar" target='blank' className='hover:animate-wiggle block ml-3 bg-white rounded-xl w-1/3 p-4 py-auto'>
             <div className='text-black text-sm font-bold'>book a call with me</div>
-            <div className='text-black text-2xl xl:text-5xl lg:text-4xl font-bold mt-3'>Cal.com</div>
+            <div className='text-black text-xl xl:text-5xl lg:text-4xl font-bold mt-3'>Cal.com</div>
           </a>
         </div>
         <div className='flex mt-3'>
-        <div className='hover:animate-wiggle hover:cursor-pointer md:flex hidden justify-center items-center bg-black mx-auto p-3 rounded-xl w-full h-auto mr-3'>
+        <a href='https://docs.google.com/document/d/1g8O8VrkkOag6qaY26GLfar93Jb7sSeaXh8YNl9eSDgg/edit?usp=sharing' target='blank' className='hover:animate-wiggle hover:cursor-pointer md:flex hidden justify-center items-center bg-black mx-auto p-3 rounded-xl w-full h-auto mr-3'>
             <div className='text-white font-bold text-2xl'>Résumé </div>
             <span className='mb-3'><Image alt='resume' width={20} height={20} src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAwElEQVR4nO3XTQrCMBDF8bmE4iUDb0gW3ktPYPEC7cLjRBSFLvxom8DMwPtBF92U9y9dpCJEREREROEAuKpq7XEBGCwChl4BqlolkpTSDsAYMiDnvAcwvT6dKVTA/M0DuJVSDmECPo0XEQkR8G18iIBf490H/BvvOmDJeLcBS8e7DFgz3l3A2vGuAraMdxOwdbyLgJbx5gGt400Deow3DVDV8/tI/DgiNzynmgQAOAI4tYyf/dldnjdERERERBLJHXJrTgd+S7SKAAAAAElFTkSuQmCC" /></span>
             
-          </div>
+          </a>
         <div className='flex justify-center items-center bg-white mx-auto p-3 rounded-xl w-full h-auto'>
             <div className='flex text-black font-bold text-2xl gap-1'>
               <span><Image alt='solidity' width={50} height={50} src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAAD40lEQVR4nO2dTWhVRxTHf601aqhWglj7YRWloqJgaKEEWmg3JVixGlfGjUrjxrhRseJHumm76eeq6aaKUUvTVZuFLaigoqCiUkFQoy0UirUipUm/Y5Mp094LISTx3ffm3jlz5/zgD293Z/5neO++mXPOgKIoiqL4ZQVgCtYrGvT/qQOuewjATWBSMoao2enB/FSvEzmzgD6PAfgVeJyIOejR/FRdREoTMCQgAHYMLxAZDwLnBZif6hIwgYjYJMB0M0JtRMJ04I4Aw80I3QUaiIAPBZhtxtAHlJzFwIAAo80YugcspcR8LcBkcx8dp6SsEWCuqVAtlIwpwHcCjDUV6nugnhLxhgBTTUZ1UBJmA78JMNRk1B/AXErA5wLMNFWqm8B5Xsh+j6lBLxEodm/lsgADTY26AjxEgGwRYJ5xpHYCoyHZWzEl0c/ADALiYwGmGcfqJBAagX8EGGYcaxB4lgA4VaApQ8nXQ1HqIQAOFxiAQ74nK5EnkmyDvM3/HXjK92SlsruAAOzyPUnp2W69OZr/LTDZ9ySl82qOAVjpe3KhcCQH84/6nlRIPA385dD8AWCh70mFxrsOA/CO78mEyFTglgPzbwOP+J5MqGxwEID1vicRMg8AZ2sw/0KST6rUwDPJhlZW8weB59R5N+yrIgCfqPnumAn8ksH8fuAxDYBbtmUIwFY13z0TgasVmN+rVYz50VxBAJpzPrWzipovxzH/i5xfiU8CZ5LP0TIP+HMU8/9O9pDyYt2wZ7USOW+NEoA3c3xefZL5nD7rB+BhIqa+YEPeHiXgdhFETeswM9bm+Jz543zlLSByTgCnc/5R7BnnR9++EERNY86vhb5fe4k9QeBaBQG4oX/88mF7hq0Pu02iOORR3fzzy/4qtr/tlrni8QDIJvzqAVCN2ONLPQL1yMYqVv5I2UQCxWMazE+aBlMd7zkwP5VNKlMysMhxOxzbvmZJlgHEzlcOzU+lycAVsioH81PZVHtlHGwLYi0I8cieHFd/Klt2pYxRFFhEOxwtChyDTwswP5UtwRVPT8HF00MFBsAWoYtnmbYq8E9ngavSFKSPCAhtVyOAdgGr1jjSZgJtWfaNAPNMrC3LytK070UCp1uAiaZKfUYJeDLgxq1zKAkdAgw1GbWXEmFby2jzbs+0CFjVpkKtpqSEcIHDMUqM6zNb41ilv8KE5KIcI1TvEwHTgB8FmG1GyQOyV2xFQZsAw80IvUZkuZvnBJie6mKM7XCahOwTRXmZZ0qXgAAcIPIKlj6P5vfHfqEzybXivgKw478RRE5dhVWMrqVVkcN42UMAlg8fgKIoiqJQMP8Cdx1tGULwY0QAAAAASUVORK5CYII=" /></span>
