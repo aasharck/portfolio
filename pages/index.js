@@ -1,3 +1,4 @@
+import Project from '@/components/Project';
 import Head from 'next/head';
 import Image from 'next/image';
 
@@ -16,18 +17,18 @@ export default function Home() {
         </div>
 
         <div className='md:flex mt-3'>
-          <div className='flex-auto bg-white p-3 rounded-xl md:py-4 py-5 lg:w-auto w-auto'>
+          <div className='flex-auto bg-white p-3 rounded-xl md:py-4 py-5 xl:w-1/3 lg:w-5/6 md:w-1/3 w-auto'>
             <div className='block'>
               <div className='px-3 text-black font-bold md:text-xs text-xxs lg:pb-2'>Freelancer / Part time Builder</div>
             </div>
             <div className='block'>
-              <h1 className='px-3 mt-2 text-black font-bold text-2xl md:text-3xl xl:text-5xl lg:text-4xl'>Blockchain Developer</h1>
+              <h1 className='px-3 mt-2 text-black font-bold tracking-tight text-2xl md:text-3xl xl:text-5xl lg:text-4xl'>Blockchain Developer</h1>
             </div>
             <div className='block'>
-              <p className='px-3 mt-2 text-black font-bold lg:text-sm text-sm'>I code, audit smart contracts and occassionally build stuffs that no one cares.</p>
+              <p className='px-3 mt-2 text-black font-bold lg:text-sm text-sm'>I code and audit smart contracts.Sometimes I build things that are so innovative, people don't know what to do with them yet.</p>
             </div>
           </div>
-          <a href='https://github.com/aasharck' target='blank' className='md:block hidden md:ml-3 md:mt-0 mt-3 bg-black p-3 rounded-xl lg:w-auto w-auto hover:cursor-pointer'>
+          <a href='https://github.com/aasharck' target='blank' className='hover:animate-wiggle md:block hidden md:ml-3 md:mt-0 mt-3 bg-black p-3 rounded-xl lg:w-auto w-auto hover:cursor-pointer'>
             <Image className='mx-auto xl:mt-1 lg:mt-4 md:mt-2' alt='github.com/aasharck' src="/github.svg" width={120} height={120} />
           </a>
         </div>
@@ -43,7 +44,7 @@ export default function Home() {
         </div>
         <div className='flex mt-3'>
         {/* bg-gradient-to-br from-pink-800 to-purple-900 */}
-        <div className='block bg-orange-600 w-2/3 rounded-xl p-4 py-auto'>
+        <div className='block bg-violet-700 w-2/3 rounded-xl p-4 py-auto'>
           <div className='text-white font-bold text-lg lg:text-2xl'>Audit Findings</div>
           <div className='flex mt-4'>
             <div className='w-1/3 font-bold text-black'><span className='text-2xl lg:text-5xl text-white'>3</span><span className='md:text-xl text-xs'>&nbsp;&nbsp;High</span></div>
@@ -52,13 +53,13 @@ export default function Home() {
           </div>
         </div>
 
-          <a href="https://cal.com/aashar" target='blank' className='block ml-3 bg-white rounded-xl w-1/3 p-4 py-auto'>
+          <a href="https://cal.com/aashar" target='blank' className='hover:animate-wiggle block ml-3 bg-white rounded-xl w-1/3 p-4 py-auto'>
             <div className='text-black text-sm font-bold'>book a call with me</div>
             <div className='text-black text-2xl xl:text-5xl lg:text-4xl font-bold mt-3'>Cal.com</div>
           </a>
         </div>
         <div className='flex mt-3'>
-        <div className='md:flex hidden justify-center items-center bg-black mx-auto p-3 rounded-xl w-full h-auto mr-3'>
+        <div className='hover:animate-wiggle hover:cursor-pointer md:flex hidden justify-center items-center bg-black mx-auto p-3 rounded-xl w-full h-auto mr-3'>
             <div className='text-white font-bold text-2xl'>Résumé </div>
             <span className='mb-3'><Image width={20} height={20} src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAwElEQVR4nO3XTQrCMBDF8bmE4iUDb0gW3ktPYPEC7cLjRBSFLvxom8DMwPtBF92U9y9dpCJEREREROEAuKpq7XEBGCwChl4BqlolkpTSDsAYMiDnvAcwvT6dKVTA/M0DuJVSDmECPo0XEQkR8G18iIBf490H/BvvOmDJeLcBS8e7DFgz3l3A2vGuAraMdxOwdbyLgJbx5gGt400Deow3DVDV8/tI/DgiNzynmgQAOAI4tYyf/dldnjdERERERBLJHXJrTgd+S7SKAAAAAElFTkSuQmCC" /></span>
             
@@ -74,49 +75,34 @@ export default function Home() {
         </div>
         </div>
         
-        <div className='md:flex block bg-black p-3 rounded-xl mt-3'>
-          <div className='block md:p-5 p-2 w-auto md:w-3/5 md:py-10 py-8'>
-            <div className='flex'>
-              <h1 className='pl-3 xl:text-5xl text-4xl font-bold text-white'>keepshipping</h1>
-              <span className='mb-3 ml-1'><Image width={25} height={25} src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAwElEQVR4nO3XTQrCMBDF8bmE4iUDb0gW3ktPYPEC7cLjRBSFLvxom8DMwPtBF92U9y9dpCJEREREROEAuKpq7XEBGCwChl4BqlolkpTSDsAYMiDnvAcwvT6dKVTA/M0DuJVSDmECPo0XEQkR8G18iIBf490H/BvvOmDJeLcBS8e7DFgz3l3A2vGuAraMdxOwdbyLgJbx5gGt400Deow3DVDV8/tI/DgiNzynmgQAOAI4tYyf/dldnjdERERERBLJHXJrTgd+S7SKAAAAAElFTkSuQmCC" /></span>
-            </div>
-            <p className='pl-3 mt-2 text-white md:text-sm text-xs'>a platform that lets people share what they shipped with the world. Product hunt but with less bots and less users(duh!).</p>
-          </div>
-          <div className='flex justify-center items-center md:h-auto w-auto md:w-2/5'>
-          <div className='w-auto'>
-            <Image src="/readingmood.jpg" width={300} height={300} />
-          </div>
-        </div> 
-        </div>
-        <div className='md:flex block bg-black p-3 rounded-xl mt-3'>
-        <div className='block md:p-5 p-2 w-auto md:py-10 py-8 md:w-3/5'>
-        <div className='flex'>
-              <h1 className='pl-3 xl:text-5xl text-4xl font-bold text-white'>copygen</h1>
-              <span className='mb-3 ml-1'><Image width={25} height={25} src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAwElEQVR4nO3XTQrCMBDF8bmE4iUDb0gW3ktPYPEC7cLjRBSFLvxom8DMwPtBF92U9y9dpCJEREREROEAuKpq7XEBGCwChl4BqlolkpTSDsAYMiDnvAcwvT6dKVTA/M0DuJVSDmECPo0XEQkR8G18iIBf490H/BvvOmDJeLcBS8e7DFgz3l3A2vGuAraMdxOwdbyLgJbx5gGt400Deow3DVDV8/tI/DgiNzynmgQAOAI4tYyf/dldnjdERERERBLJHXJrTgd+S7SKAAAAAElFTkSuQmCC" /></span>
-            </div>
-            <p className='pl-3 mt-2 text-white md:text-sm text-xs'>a useful copywriting tool for dropshippers and online sellers that lets them create product copies and ad copies just from a product link (like alibaba)</p>
-          </div>
-          <div className='flex justify-center items-center md:h-auto w-auto md:w-2/5'>
-          <div className='w-auto'>
-            <Image src="/readingmood.jpg" width={300} height={300} />
-          </div>
-        </div>
-       
-          </div>
-        <div className='md:flex block bg-black p-3 rounded-xl mt-3'>
-        <div className='block md:p-5 p-2 w-auto md:w-3/5 md:py-10 py-8'>
-        <div className='flex'>
-              <h1 className='pl-3 xl:text-5xl text-4xl font-bold text-white'>readingmood</h1>
-              <span className='mb-3 ml-1'><Image width={25} height={25} src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAwElEQVR4nO3XTQrCMBDF8bmE4iUDb0gW3ktPYPEC7cLjRBSFLvxom8DMwPtBF92U9y9dpCJEREREROEAuKpq7XEBGCwChl4BqlolkpTSDsAYMiDnvAcwvT6dKVTA/M0DuJVSDmECPo0XEQkR8G18iIBf490H/BvvOmDJeLcBS8e7DFgz3l3A2vGuAraMdxOwdbyLgJbx5gGt400Deow3DVDV8/tI/DgiNzynmgQAOAI4tYyf/dldnjdERERERBLJHXJrTgd+S7SKAAAAAElFTkSuQmCC" /></span>
-            </div>
-            <p className='pl-3 mt-2 text-white md:text-sm text-xs'>Find the perfect song that exactly matches the book that you are reading. Build this as a part of a challenge from Buildspace</p>
-          </div>
-          <div className='flex justify-center items-center md:h-auto w-auto md:w-2/5'>
-          <div className='w-auto'>
-            <Image src="/readingmood.jpg" width={300} height={300} />
-          </div>
-        </div>        
-          </div>
+        <Project 
+        name='keepshipping'
+        desc='a platform that lets people share what they shipped with the world. like product hunt but with no bots and no users(duh!).'
+        url='https://keepshipping.xyz'
+        imgUrl='/keepshipping.jpg'
+        />
+
+      <Project 
+        name='copygen'
+        desc='a useful copywriting tool for dropshippers and online sellers that lets them create product copies and ad copies just from a product link'
+        url='https://copygen.xyz'
+        imgUrl='/copygen.jpg'
+        />
+
+      <Project 
+        name='bitcourse'
+        desc='An online learning platform like udemy but on the blockchain. Tutors can create courses as NFTs and the students have the abilitiy to sell them.'
+        url='https://bitcourse.io'
+        imgUrl='/bitcourse.jpg'
+        />
+
+    <Project 
+        name='readingmood'
+        desc='Find the perfect song that exactly matches the book that you are reading. Built this as a part of a challenge from Buildspace'
+        url='https://readingmood.co'
+        imgUrl='/readingmood.jpg'
+        />
+        
       </main>
     </>
   );

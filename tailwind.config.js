@@ -8,6 +8,15 @@ module.exports = {
           lineHeight: '1rem',
         }],
       },
+      animation: {
+        wiggle: 'wiggle 0.2s ease-in-out infinite',
+      },
+      keyframes: {
+        wiggle: {
+          '0%, 100%': { transform: 'rotate(-3deg)' },
+          '50%': { transform: 'rotate(3deg)' },
+        }
+      },
     },
     screens:{
       sm: '480px',
