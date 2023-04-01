@@ -13,7 +13,7 @@ const Project = ({name, url, desc, imgUrl}) => {
           </div>
           <div className='flex justify-center items-center md:h-auto w-auto md:w-2/5'>
           <div className='w-auto'>
-            <Image src={imgUrl} width={300} height={300} />
+            <Image alt={name} src={imgUrl} width={300} height={300} />
           </div>
         </div> 
         </div>
