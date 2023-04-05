@@ -47,7 +47,7 @@ export default function Home() {
         <div className='block bg-violet-700 w-2/3 rounded-xl p-4 py-auto'>
           <div className='text-white font-bold text-lg lg:text-2xl'>Audit Findings<span className='lg:text-sm text-xxs text-slate-300'>&nbsp;&nbsp;(C4 and Sherlock)</span></div>
           <div className='flex mt-4'>
-            <div className='w-1/3 font-bold text-black'><span className='text-2xl lg:text-5xl text-white'>3</span><span className='md:text-xl text-xs'>&nbsp;&nbsp;High</span></div>
+            <div className='w-1/3 font-bold text-black'><span className='text-2xl lg:text-5xl text-white'>4</span><span className='md:text-xl text-xs'>&nbsp;&nbsp;High</span></div>
             <div className='w-1/3 font-bold text-black'><span className='text-2xl lg:text-5xl text-white'>2</span><span className='md:text-xl text-xs'>&nbsp;&nbsp;Med</span></div>
             <div className='w-1/3 font-bold text-black'><span className='text-2xl lg:text-5xl text-white'>2</span><span className='md:text-xl text-xs'>&nbsp;&nbsp;Low/QA</span></div>
           </div>
