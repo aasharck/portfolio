@@ -76,6 +76,13 @@ export default function Home() {
         </div>
         
         <Project 
+        name='auditjobs'
+        desc='a curated list of all the top oppurtunities in Blockchain security and Smart contract auditing. currently at $20 revenue'
+        url='https://auditjobs.xyz'
+        imgUrl='/auditjobs.xyz.jpg'
+        />
+
+        <Project 
         name='keepshipping'
         desc='a platform that lets people share what they shipped with the world. like product hunt but with no bots and no users(duh!).'
         url='https://keepshipping.xyz'
