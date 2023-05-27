@@ -25,7 +25,7 @@ export default function Home() {
               <h1 className='px-3 mt-2 text-black font-bold tracking-tight text-2xl md:text-3xl xl:text-5xl lg:text-4xl'>Blockchain Developer</h1>
             </div>
             <div className='block'>
-              <p className='px-3 mt-2 text-black font-bold lg:text-sm text-sm'>Hey, I'm Aashar Ck. I code and audit smart contracts, and also enjoy building different things on the internet.</p>
+              <p className='px-3 mt-2 text-black font-bold lg:text-sm text-sm'>Hey, I&apos;m Aashar Ck. I code and audit smart contracts, and also enjoy building different things on the internet.</p>
             </div>
           </div>
           <a href='https://github.com/aasharck' target='blank' className='hover:animate-wiggle md:block hidden md:ml-3 md:mt-0 mt-3 bg-black p-3 rounded-xl lg:w-auto w-auto hover:cursor-pointer'>
