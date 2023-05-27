@@ -9,7 +9,7 @@ export default function Home() {
         <title>Aashar Ck</title>
         <meta name='description' content='Fullstack Blockchain Developer' />
         <meta name='viewport' content='width=device-width, initial-scale=1' />
-        <link rel='icon' href='/favicon.ico' />
+        <link rel='icon' href='/favicon-aashar.png' />
       </Head>
       <main className='container mx-auto my-4 xl:px-96 lg:px-56 md:px-32 px-4'>
         <div className='flex bg-white p-3 rounded-xl'>
