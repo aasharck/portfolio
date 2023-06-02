@@ -22,7 +22,7 @@ export default function Home() {
               <div className='px-3 text-black font-bold md:text-xs text-xxs lg:pb-2'>Freelancer / Part time Builder</div>
             </div>
             <div className='block'>
-              <h1 className='px-3 mt-2 text-black font-bold tracking-tight text-2xl md:text-3xl xl:text-5xl lg:text-4xl'>Blockchain Developer</h1>
+              <h1 className='px-3 mt-2 text-black font-bold tracking-tight text-2xl md:text-3xl xl:text-3xl lg:text-3xl'>Full-Stack Developer (Blockchain)</h1>
             </div>
             <div className='block'>
               <p className='px-3 mt-2 text-black font-bold lg:text-sm text-sm'>Hey, I&apos;m Aashar Ck. I code and audit smart contracts, and also enjoy building different things on the internet.</p>
@@ -37,7 +37,7 @@ export default function Home() {
           <a href='https://github.com/aasharck' target='blank' className='hover:animate-wiggle md:ml-3 md:mt-0 mt-3 block bg-black p-3 rounded-xl lg:w-auto w-1/3'>
               <Image className='mx-auto mt-1 md:mt-4' alt='github.com/aasharck' src="/github.svg" width={80} height={80} />
           </a>
-          <a href='https://docs.google.com/document/d/1g8O8VrkkOag6qaY26GLfar93Jb7sSeaXh8YNl9eSDgg/edit?usp=sharing' target='blank' className='hover:animate-wiggle hover:cursor-pointer flex justify-center items-center bg-white mx-auto mt-3 p-3 rounded-xl w-full h-auto'>
+          <a href='https://docs.google.com/document/d/1VO5yCeXHK34XBkvh7ptOTtqm0gqJtRfRESjZh9nvwEU/edit?usp=sharing' target='blank' className='hover:animate-wiggle hover:cursor-pointer flex justify-center items-center bg-white mx-auto mt-3 p-3 rounded-xl w-full h-auto'>
             <div className='text-black font-bold text-2xl'>Résumé</div>
             <span className='mb-3'><Image alt='resume' width={20} height={20} src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAwElEQVR4nO3XTQrCMBDF8bmE4iUDb0gW3ktPYPEC7cLjRBSFLvxom8DMwPtBF92U9y9dpCJEREREROEAuKpq7XEBGCwChl4BqlolkpTSDsAYMiDnvAcwvT6dKVTA/M0DuJVSDmECPo0XEQkR8G18iIBf490H/BvvOmDJeLcBS8e7DFgz3l3A2vGuAraMdxOwdbyLgJbx5gGt400Deow3DVDV8/tI/DgiNzynmgQAOAI4tYyf/dldnjdERERERBLJHXJrTgd+S7SKAAAAAElFTkSuQmCC" /></span>
           </a>
@@ -59,7 +59,7 @@ export default function Home() {
           </a>
         </div>
         <div className='flex mt-3'>
-        <a href='https://docs.google.com/document/d/1g8O8VrkkOag6qaY26GLfar93Jb7sSeaXh8YNl9eSDgg/edit?usp=sharing' target='blank' className='hover:animate-wiggle hover:cursor-pointer md:flex hidden justify-center items-center bg-black mx-auto p-3 rounded-xl w-full h-auto mr-3'>
+        <a href='https://docs.google.com/document/d/1VO5yCeXHK34XBkvh7ptOTtqm0gqJtRfRESjZh9nvwEU/edit?usp=sharing' target='blank' className='hover:animate-wiggle hover:cursor-pointer md:flex hidden justify-center items-center bg-black mx-auto p-3 rounded-xl w-full h-auto mr-3'>
             <div className='text-white font-bold text-2xl'>Résumé </div>
             <span className='mb-3'><Image alt='resume' width={20} height={20} src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAwElEQVR4nO3XTQrCMBDF8bmE4iUDb0gW3ktPYPEC7cLjRBSFLvxom8DMwPtBF92U9y9dpCJEREREROEAuKpq7XEBGCwChl4BqlolkpTSDsAYMiDnvAcwvT6dKVTA/M0DuJVSDmECPo0XEQkR8G18iIBf490H/BvvOmDJeLcBS8e7DFgz3l3A2vGuAraMdxOwdbyLgJbx5gGt400Deow3DVDV8/tI/DgiNzynmgQAOAI4tYyf/dldnjdERERERBLJHXJrTgd+S7SKAAAAAElFTkSuQmCC" /></span>
             
