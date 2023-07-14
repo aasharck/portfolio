@@ -12,8 +12,9 @@ export default function Home() {
         <link rel='icon' href='/favicon-aashar.png' />
       </Head>
       <main className='container mx-auto my-4 xl:px-96 lg:px-56 md:px-32 px-4'>
-        <div className='flex bg-white p-3 rounded-xl'>
-          <h1 className='pl-3 text-2xl font-bold text-black'>Aashar Ck</h1>
+        <div className='flex bg-white p-3 rounded-xl justify-between'>
+          <div className='flex'><h1 className='pl-3 text-2xl font-bold text-black'>Aashar Ck</h1></div>
+          <a href="mailTo:aasharck@gmail.com" className='flex'><Image className='hover:animate-wiggle' width={30} height={30} src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAAEBklEQVR4nO2czWsdVRiHn+j1o801KlKRIoXWRlCLqS0IbgqCW5duXbrtok2C2oULF12Elixa8A+oCYIraW2MINhFQRAExRgQg6W0qVJRkxYtTUcOfcd8kJl7586ZOefO/T3wbsLNOed9fzPnvHO+QAghhBBCCCGEEEIIIYQQojPPAxPAPLAArAJJQ23VfHS+jgOjIR+Ql4DPIghKEticGIfqDHwLmAbWInA+icRcLE5bbCrlCVM8tMNJpDYHPF5V8B8ELkTgZBK5fVHVmzAdgXNJn9gp38E/1KHPvw68C4wBwzSXYfPxPWA5Jx4uVgd9VpzX73/c8KBn0QZmcuJyEY95flYl54AhBpehDiLs91HJRE63456CQaed0x0dr7L7cX2+uM/7OWlpaRYzCn/ZR+ENYSwjRj/5KHwlo3B1P+u0M2LkYlearAFG1BQnCRCpAB8CIz4q6HNGLBa1C+DsJjAJPMrg8RDwTocv4soFSO2KNcZN2A3Cx9dbwM9dxqY0SQH7wRrXVN4Avi0Yk9IkPdiXwGGaw4ESq3+lSXq0e8AnvuZDArEH+Kjk6l9pkpJ2x5x4hv7hKeAk8I8H/0uTVbDrD78ruKPgZOSp67BldX8W8OtHG/dqF8DxgFX+S4EG/25OPkI8tCyLu1bAj6tbMr8gAqQ8bI35rYADS8DbEawnvJkz4bid/WEP0I4t5QQVIOVJ62ZuF3DoG+B16uc14FKBdv5rY9mujPKiECDlWWvs3QIOzvteR83gBcvOum3Xmv1+b4dyoxKgrLP78E/VD0WUAmx83b/u4XV/2kP76+oWoxYgxaWu3xcIxN/AB9sMeN3gEoOjNmh2W9+iZXW9JAZ9IUDZlK/VRflparzUQ2rsROuVvhEgZWcPHz0LHSb7Qn4c9p0AZT77LwNH/i8BXgW+Cjw90rcCpDxnm5zudRlE97tPzYr8z4zV5Zu+F8DH1G/IKfLGCFBm8SPkIlHjBOhl+W+j/VrzMmkjBSi6AB5yo0CjBdi4A23SPtC2tueWZVPuGFUIBkKAlN3AWXvanZ2xv4VkoASIEQkQGAkQGAkQGAkQGAkQGAkQGAkQGAkQGAkQGAnQVAG2m/hypmOq64xkxOgvPKCD2p05mLOJoLKrCtyVLeI+J6q8qmA8o3C3OKJuCB4DbmTE6JgPAUZzBpiZCLaXh8T5PpsTH2+7L+Y6iNAe0Cd/Nicun/seZPIOqi3blS2vNFyMtvl4IqfbSSxW3m+TOZ1ToYxNMZiiAtz2jvMKNsGurcQuJc0bDwbdLtZxCrRl92Lq6mI29flTdd+V8WLB40dNtfmazrZlst9uB5yzQ8tZV5w1wVbMxzn7yKpil7UQQgghhBBCCCGEEEIIIWgW/wHfAo17hXJZlAAAAABJRU5ErkJggg==" /></a>
         </div>
 
         <div className='md:flex mt-3'>
