@@ -78,7 +78,7 @@ export default function Home() {
         
         <Project 
         name='auditjobs'
-        desc='a curated list of all the top oppurtunities in Blockchain security and Smart contract auditing. currently at $20 revenue'
+        desc='a curated list of all the top opportunities in Blockchain security and Smart contract auditing. currently at $20 revenue'
         url='https://auditjobs.xyz'
         imgUrl='/auditjobs.xyz.jpg'
         />
@@ -99,7 +99,7 @@ export default function Home() {
 
       <Project 
         name='bitcourse'
-        desc='An online learning platform like udemy but on the blockchain. Tutors can create courses as NFTs and the students have the abilitiy to sell them.'
+        desc='An online learning platform like Udemy but on the blockchain. Tutors can create courses as NFTs and the students have the abilitiy to sell them.'
         url='https://bitcourse.io'
         imgUrl='/bitcourse.jpg'
         />
