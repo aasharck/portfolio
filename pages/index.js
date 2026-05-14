@@ -300,6 +300,7 @@ export default function Home() {
           </div>
         </div>
 
+
         <footer className="footer">
           <span>© 2026 Aashar Ck</span>
           <span>Frontend Developer — React · Next.js · TypeScript</span>
