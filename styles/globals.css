@@ -367,7 +367,7 @@ em { font-style: italic; }
 
 .project-row {
   display: grid;
-  grid-template-columns: 52px 1fr auto 36px;
+  grid-template-columns: 52px 1fr 36px;
   align-items: center;
   gap: 2rem;
   padding: 2rem 0;
@@ -385,14 +385,48 @@ em { font-style: italic; }
 .project-row:hover .project-num   { color: var(--accent); }
 .project-row:hover .project-name  { color: var(--text); }
 .project-row:hover .project-desc  { color: var(--text-2); }
+.project-row:hover .project-tag  { color: var(--text-2); }
 .project-row:hover .project-arrow { color: var(--accent); transform: translate(4px, -4px); }
+
+.project-name-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.4rem;
+}
+
+.project-name-row .project-name {
+  margin-bottom: 0;
+}
+
+.project-active-badge {
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid rgba(201, 169, 110, 0.35);
+  border-radius: 100px;
+  padding: 0.2rem 0.65rem;
+  background: rgba(201, 169, 110, 0.08);
+  flex-shrink: 0;
+  /* subtle pulse to draw the eye */
+  animation: badge-pulse 3s ease-in-out infinite;
+}
+
+@keyframes badge-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.55; }
+}
 
 @media (max-width: 768px) {
   .project-row {
     grid-template-columns: 40px 1fr 28px;
     gap: 1.25rem;
   }
-  .project-tags-wrap { display: none; }
+  .project-tags-wrap {
+    display: none;
+  }
 }
 
 .project-num {
@@ -428,8 +462,7 @@ em { font-style: italic; }
   display: flex;
   flex-wrap: wrap;
   gap: 0.35rem;
-  justify-content: flex-end;
-  max-width: 210px;
+  margin-top: 0.75rem;
 }
 
 .project-tag {

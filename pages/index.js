@@ -5,7 +5,8 @@ import { useEffect } from 'react';
 const projects = [
   {
     id: '01',
-    name: 'Adpex (In Active development)',
+    name: 'Adpex',
+    active: true,
     url: 'https://web-production-5017.up.railway.app',
     desc: 'AI-powered marketing intelligence SaaS. Autonomous LangGraph pipeline analyzes Google Ads + Meta Ads data, detects anomalies, and delivers weekly reports with prioritized recommendations.',
     tags: ['Next.js', 'LangGraph', 'Tailwind CSS', 'AI', 'Claude', 'Postgres'],
@@ -34,6 +35,7 @@ const projects = [
   {
     id: '03',
     name: 'SwitchBoardAI',
+    active: true,
     // url: 'https://auditjobs.xyz',
     desc: 'a multi-agent coordination platform on top of OpenClaw with a React dashboard, staggered heartbeat scheduling, per-agent persistent memory, a shared task board, and automatic session transcript ingestion.',
     tags: ['OpenClaw', 'Next.js' , 'Claude', 'AI'],
@@ -77,7 +79,7 @@ export default function Home() {
         <title>Aashar Ck — Frontend Developer</title>
         <meta
           name="description"
-          content="Frontend developer specialising in React, Next.js and TypeScript. Building fast, modern, and visually compelling web experiences."
+          content="Frontend developer specialising in React, Next.js and Javascript. Building fast, modern, and visually compelling web experiences."
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon-aashar.png" />
@@ -214,16 +216,19 @@ export default function Home() {
               style={{ transitionDelay: `${i * 0.06}s` }}
             >
               <span className="project-num">{p.id}</span>
-              <div>
-                <div className="project-name">{p.name}</div>
+              <div className="project-info">
+                <div className="project-name-row">
+                  <div className="project-name">{p.name}</div>
+                  {p.active && <span className="project-active-badge">In Active Development</span>}
+                </div>
                 <div className="project-desc">{p.desc}</div>
+                <div className="project-tags-wrap">
+                  {p.tags.map((t) => (
+                    <span key={t} className="project-tag">{t}</span>
+                  ))}
+                </div>
               </div>
-              <div className="project-tags-wrap">
-                {p.tags.map((t) => (
-                  <span key={t} className="project-tag">{t}</span>
-                ))}
-              </div>
-              <span className="project-arrow">↗</span>
+              <span className="project-arrow" aria-hidden="true">↗</span>
             </a>
           ))}
         </div>
@@ -303,7 +308,7 @@ export default function Home() {
 
         <footer className="footer">
           <span>© 2026 Aashar Ck</span>
-          <span>Frontend Developer — React · Next.js · TypeScript</span>
+          <span>Frontend Developer — React · Next.js · JavaScript</span>
         </footer>
       </section>
     </>
