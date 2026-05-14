@@ -6,7 +6,7 @@ const projects = [
   {
     id: '01',
     name: 'Adpex (In Active development)',
-    url: 'web-production-5017.up.railway.app',
+    url: 'https://web-production-5017.up.railway.app',
     desc: 'AI-powered marketing intelligence SaaS. Autonomous LangGraph pipeline analyzes Google Ads + Meta Ads data, detects anomalies, and delivers weekly reports with prioritized recommendations.',
     tags: ['Next.js', 'LangGraph', 'Tailwind CSS', 'AI', 'Claude', 'Postgres'],
   },
