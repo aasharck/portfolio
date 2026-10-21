@@ -146,7 +146,19 @@ describe("fit: mock report", () => {
     for (const it of rep.items)
       for (const e of it.evidence) expect(index.chunks.find((c) => c.id === e.id)?.text).toContain(e.quote);
     expect(rep.summary.gaps).toContain("Kubernetes and Terraform in production");
+    // the note about this portfolio is never evidence for the candidate
+    for (const it of rep.items) for (const e of it.evidence) expect(e.id.startsWith("this-site#")).toBe(false);
     expect(rep.trace.costUsd).toBe(0);
+  });
+
+  it("never cites the note about this portfolio as evidence", async () => {
+    const rep = await assessFit(
+      "Requirements:\n- Experience building RAG systems with vector search and citations\n- Cost guardrails for LLM features",
+      { mode: MOCK, index },
+    );
+    const ids = rep.items.flatMap((i) => i.evidence.map((e) => e.id));
+    expect(ids.length).toBeGreaterThan(0);
+    expect(ids.some((id) => id.startsWith("this-site#"))).toBe(false);
   });
 
   it("summary headline counts match the items", () => {
@@ -197,7 +209,7 @@ describe("fit: live path (scripted model) verifies every citation", () => {
             note: "Audits.",
           },
         ],
-        summary: { headline: "Good fit.", strengths: ["AWS"], gaps: [] },
+        summary: { headline: "Good fit.", strengths: ["AWS", "Smart contract audits"], gaps: [] },
       },
     ]);
     const rep = await assessFit("x".repeat(100), { mode: LIVE, llm, index, reserve: async () => true });
@@ -208,6 +220,10 @@ describe("fit: live path (scripted model) verifies every citation", () => {
     expect(rep.items[1].verdict).toBe("none");
     expect(rep.items[1].evidence).toEqual([]);
     expect(rep.droppedCitations).toBe(2);
+    // the model listed audits as a strength; after verification it is a gap
+    expect(rep.summary.strengths).toEqual(["Experience with AWS Lambda"]);
+    expect(rep.summary.gaps).toEqual(["Smart contract audits"]);
+    expect(rep.summary.headline).toBe("Good fit.");
     expect(rep.trace.usage).toHaveLength(2);
   });
 

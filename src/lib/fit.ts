@@ -42,6 +42,8 @@ export interface FitDeps {
 }
 
 export const MAX_REQUIREMENTS = 12;
+/** The note about this site describes the portfolio itself: circular as evidence of skill. */
+export const EVIDENCE_EXCLUDED_DOCS = ["this-site"];
 const STRONG = 0.6;
 const PARTIAL = 0.35;
 
@@ -309,7 +311,7 @@ export async function assessFit(jd: string, deps: FitDeps): Promise<FitReport> {
   const perReq = await tr.step(
     "tool",
     `search_corpus ×${reqs.length}`,
-    () => reqs.map((r) => search(index, r.query, 4)),
+    () => reqs.map((r) => search(index, r.query, 4, EVIDENCE_EXCLUDED_DOCS)),
     (r) => `${r.reduce((a, h) => a + h.length, 0)} chunks retrieved across ${reqs.length} queries`,
   );
   perReq.forEach((hits, i) => tr.hits(hits.slice(0, 2), reqs[i].text));
@@ -352,7 +354,10 @@ export async function assessFit(jd: string, deps: FitDeps): Promise<FitReport> {
       }
       return { text: r.text, priority: r.priority, verdict, evidence, note };
     });
-    summary = res.output.summary;
+    // Strengths and gaps are rebuilt from the verified verdicts, so a downgraded
+    // requirement can't still be listed as a strength. The headline is the model's.
+    const verified = ruleSummary(items);
+    summary = { headline: res.output.summary.headline, strengths: verified.strengths, gaps: verified.gaps };
     tr.note(
       "check",
       "verify_citations",

@@ -33,7 +33,7 @@ export function queryTerms(query: string): string[] {
   return [...new Set(tokenize(query))];
 }
 
-export function search(index: CorpusIndex, query: string, k = 5): Hit[] {
+export function search(index: CorpusIndex, query: string, k = 5, excludeDocs: string[] = []): Hit[] {
   const terms = queryTerms(query);
   if (!terms.length) return [];
   // Unknown terms get the maximum idf: a word the corpus never mentions
@@ -63,7 +63,7 @@ export function search(index: CorpusIndex, query: string, k = 5): Hit[] {
 
   return (
     hits
-      .filter((h) => h.score > 0)
+      .filter((h) => h.score > 0 && !excludeDocs.includes(h.chunk.doc))
       // Rank by BM25 scaled by coverage: a chunk that answers every part of the
       // query beats one that repeats a single term.
       .sort((a, b) => b.score * (0.5 + b.coverage) - a.score * (0.5 + a.coverage))
