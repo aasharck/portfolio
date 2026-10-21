@@ -1,6 +1,8 @@
 # Portfolio v2: part 1 notes (Wed Oct 21 2026, morning run)
 
-> **Update, Oct 21 after review:** redesigned in the "Bold Swiss studio" direction Aashar picked (Host Grotesk, grey/ink/acid-lime, magnetic CTAs, marquee, cursor previews); hero rewritten in plain words with "Available immediately"; SitesGen moved to Selected work; chat now on OpenAI `gpt-6-luna`, fit check still on Claude. Tests after the redesign: 42 unit, 26 e2e (axe 0 violations, light + dark), Lighthouse mobile 98/100/100/100 on `/`, `/work/sitesgen`, `/fit`, `/ask`, desktop 100s. Key screenshots in `docs/key-screens/` are the new design. Details in DECISIONS.md.
+> **Update 2, Oct 21:** redesigned again from Aashar's picks in a reference gallery (art-yakushev.com as the base, plus ideas from wodniack.dev and olhalazarieva.com): black stage, grotesk + italic serif, giant name, live Dubai clock, 3D text ring, kinetic WORK wall. Tests: 42 unit, 26 e2e, axe 0 violations (light + dark). Lighthouse: `/` mobile 98/100/100/100, desktop 100s; `/work/sitesgen` and `/fit` mobile 98. See DECISIONS.md.
+>
+> **Update 1, Oct 21 after review:** redesigned in the "Bold Swiss studio" direction Aashar picked (Host Grotesk, grey/ink/acid-lime, magnetic CTAs, marquee, cursor previews); hero rewritten in plain words with "Available immediately"; SitesGen moved to Selected work; chat now on OpenAI `gpt-6-luna`, fit check still on Claude. Tests after the redesign: 42 unit, 26 e2e (axe 0 violations, light + dark), Lighthouse mobile 98/100/100/100 on `/`, `/work/sitesgen`, `/fit`, `/ask`, desktop 100s. Key screenshots in `docs/key-screens/` are the new design. Details in DECISIONS.md.
 
 Branch `v2`, 4 commits on top of `main`, **nothing pushed, nothing deployed, $0 spent** (no API key on this machine; every AI path ran in mock mode). Choices and reasons: `DECISIONS.md`.
 

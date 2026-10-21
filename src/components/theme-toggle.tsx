@@ -4,28 +4,21 @@ import { useSyncExternalStore } from "react";
 
 type Theme = "light" | "dark";
 
+// Dark is the site's default; light is an explicit choice.
 function read(): Theme {
-  const set = document.documentElement.dataset.theme;
-  if (set === "light" || set === "dark") return set;
-  return matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  return document.documentElement.dataset.theme === "light" ? "light" : "dark";
 }
 
 const listeners = new Set<() => void>();
 function subscribe(fn: () => void) {
   listeners.add(fn);
-  const mq = matchMedia("(prefers-color-scheme: dark)");
-  mq.addEventListener("change", fn);
-  return () => {
-    listeners.delete(fn);
-    mq.removeEventListener("change", fn);
-  };
+  return () => listeners.delete(fn);
 }
 
 export function ThemeToggle() {
   const theme = useSyncExternalStore<Theme | null>(subscribe, read, () => null);
-  // Server render / JS off: keep the button's space (no layout shift) but hide it;
-  // the OS preference applies.
-  const next: Theme = theme === "dark" ? "light" : "dark";
+  // Server render / JS off: keep the button's space (no layout shift) but hide it.
+  const next: Theme = theme === "light" ? "dark" : "light";
   return (
     <button
       type="button"
@@ -42,7 +35,7 @@ export function ThemeToggle() {
         listeners.forEach((l) => l());
       }}
     >
-      {theme === "dark" ? "light" : "dark"}
+      {next}
     </button>
   );
 }

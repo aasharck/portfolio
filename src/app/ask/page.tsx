@@ -11,7 +11,9 @@ export default function AskPage() {
     <>
       <header className="doc-head">
         <p className="crumbs">Ask</p>
-        <h1>Ask about my work.</h1>
+        <h1>
+          Ask about <em>my work.</em>
+        </h1>
         <p>
           Answers come only from the corpus behind this site, each with numbered sources. If nothing covers the
           question, it says so instead of guessing.

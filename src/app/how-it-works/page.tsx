@@ -47,7 +47,9 @@ export default function HowItWorks() {
     <>
       <header className="doc-head">
         <p className="crumbs">Under the hood</p>
-        <h1>How this site answers, and why it won&apos;t make things up.</h1>
+        <h1>
+          How this site answers, <em>and why it won&apos;t make things up.</em>
+        </h1>
         <p>
           Every answer on this site has an &ldquo;Under the hood&rdquo; panel with the retrieved chunks and their
           scores, each step, tokens, cost in cents and latency. This page explains what you are looking at.

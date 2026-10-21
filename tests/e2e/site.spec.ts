@@ -35,9 +35,10 @@ for (const path of PAGES) {
 
 test("hero says what he does in the first screen", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByRole("heading", { level: 1 })).toContainText("Full-stack & AI engineer");
-  await expect(page.getByText("Available immediately").first()).toBeInViewport();
-  await expect(page.getByRole("link", { name: /Check my fit/ })).toBeInViewport();
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Aashar CK");
+  await expect(page.getByText("A full-stack & AI engineer")).toBeInViewport();
+  await expect(page.locator(".hero-bar").getByText("Available immediately")).toBeInViewport();
+  await expect(page.getByRole("link", { name: "Fit check" }).first()).toBeInViewport();
 });
 
 test("fit check: sample JD → cited report with an honest gap and a trace", async ({ page }, info) => {

@@ -34,14 +34,14 @@ function Diagram() {
         </desc>
         <style>{`
           .dg-box{fill:var(--bg);stroke:var(--ink);stroke-width:1.2}
-          .dg-hot{fill:var(--accent);stroke:var(--ink);stroke-width:1.2}
+          .dg-hot{fill:var(--red);stroke:var(--red);stroke-width:1.2}
           .dg-t{fill:var(--ink);font:500 13px var(--font-mono),monospace}
           .dg-s{fill:var(--muted);font:11px var(--font-mono),monospace}
           .dg-line{stroke:var(--ink);stroke-width:1.2;fill:none}
           .dg-dash{stroke:var(--muted);stroke-width:1.2;fill:none;stroke-dasharray:4 3}
           .dg-gate{fill:var(--ink)}
-          .dg-acc{fill:var(--accent-ink)}
-          .dg-band{fill:var(--bg-2);stroke:var(--rule)}
+          .dg-acc{fill:#fff}
+          .dg-band{fill:var(--panel-2);stroke:var(--rule)}
         `}</style>
         <defs>
           <marker
@@ -143,7 +143,9 @@ export default function SitesGenCaseStudy() {
         <p className="crumbs">
           <Link href="/#work">Work</Link> / SitesGen
         </p>
-        <h1>SitesGen: eight agents, one queue, about 33 cents a site.</h1>
+        <h1>
+          SitesGen: eight agents, one queue, <em>about 33 cents a site.</em>
+        </h1>
         <p>
           A multi-tenant SaaS that finds local businesses with failing websites, builds each a new one and writes the
           pitch. I built and launched it solo in about a month. It is live, with subscription billing and a first

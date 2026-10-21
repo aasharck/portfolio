@@ -12,7 +12,9 @@ export default function FitPage() {
     <>
       <header className="doc-head">
         <p className="crumbs">Fit check</p>
-        <h1>Does Aashar fit your role? Ask the evidence.</h1>
+        <h1>
+          Does Aashar fit your role? <em>Ask the evidence.</em>
+        </h1>
         <p>
           Paste a job description. The agent extracts each requirement, searches his CV and project notes, and either
           quotes the evidence with a link to its source or says &ldquo;no direct evidence&rdquo;. It ends with an honest

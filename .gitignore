@@ -52,3 +52,4 @@ src/generated/
 
 # design reference gallery (third-party screenshots, local only)
 /design-research/
+/scripts/.*-tmp.mjs
