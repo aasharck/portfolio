@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Bodoni_Moda, Host_Grotesk, JetBrains_Mono } from "next/font/google";
 import Link from "next/link";
+import { Motion } from "@/components/motion";
 import { ThemeToggle } from "@/components/theme-toggle";
 import "./globals.css";
 
@@ -73,7 +74,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <ThemeToggle />
           </nav>
         </header>
+        <span className="edge-mark left" aria-hidden="true">
+          A
+        </span>
+        <span className="edge-mark right" aria-hidden="true">
+          CK
+        </span>
         <main id="main">{children}</main>
+        <Motion />
         <footer className="footer">
           <span>© 2026 Aashar CK · Dubai, UAE</span>
           <span>

@@ -33,6 +33,7 @@ export function ThemeToggle() {
           localStorage.setItem("theme", next);
         } catch {}
         listeners.forEach((l) => l());
+        window.dispatchEvent(new Event("themechange"));
       }}
     >
       {next}

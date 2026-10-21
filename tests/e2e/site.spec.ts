@@ -13,7 +13,8 @@ async function noHorizontalScroll(page: Page) {
 for (const path of PAGES) {
   test(`${path} renders, no horizontal scroll, no axe violations (light + dark)`, async ({ page }, info) => {
     for (const scheme of ["light", "dark"] as const) {
-      await page.emulateMedia({ colorScheme: scheme });
+      // Motion is checked separately below; axe judges the settled page.
+      await page.emulateMedia({ colorScheme: scheme, reducedMotion: "reduce" });
       const res = await page.goto(path);
       expect(res?.status()).toBe(200);
       await expect(page.locator("h1")).toHaveCount(1);
@@ -33,10 +34,20 @@ for (const path of PAGES) {
   });
 }
 
+test("motion runs when allowed, and is skipped under reduced motion", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator("html")).toHaveClass(/motion-on/);
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.reload();
+  await page.waitForTimeout(500);
+  await expect(page.locator("html")).not.toHaveClass(/motion-on/);
+});
+
 test("hero says what he does in the first screen", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Aashar CK");
-  await expect(page.getByText("A full-stack & AI engineer")).toBeInViewport();
+  await expect(page.locator(".tagline")).toContainText("A full-stack & AI engineer");
+  await expect(page.locator(".tagline")).toBeInViewport();
   await expect(page.locator(".hero-bar").getByText("Available immediately")).toBeInViewport();
   await expect(page.getByRole("link", { name: "Fit check" }).first()).toBeInViewport();
 });
