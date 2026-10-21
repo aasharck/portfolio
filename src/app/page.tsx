@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { AskTool } from "@/components/ask-tool";
 import { FitTool } from "@/components/fit-tool";
-import { Magnetic } from "@/components/magnetic";
 import { WorkList, type WorkItem } from "@/components/work-list";
 
 const CAPABILITIES = [
@@ -131,11 +130,9 @@ export default function Home() {
             </div>
           </div>
           <div className="hero-cta">
-            <Magnetic>
-              <Link className="orb" href="#fit">
-                Check my fit<span aria-hidden="true">→</span>
-              </Link>
-            </Magnetic>
+            <Link className="btn" href="#fit">
+              Check my fit for your role →
+            </Link>
             <p>
               Paste a job description. An AI agent checks it against my record, requirement by requirement, and shows
               its sources.
@@ -267,11 +264,6 @@ export default function Home() {
           that ships.
         </h2>
         <div className="contact-row">
-          <Magnetic>
-            <a className="orb" href="mailto:aasharck@gmail.com">
-              Email me<span aria-hidden="true">→</span>
-            </a>
-          </Magnetic>
           <a className="pill" href="mailto:aasharck@gmail.com">
             aasharck@gmail.com
           </a>
