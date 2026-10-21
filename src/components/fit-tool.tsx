@@ -66,7 +66,7 @@ export function FitTool({ headingLevel = 3 }: { headingLevel?: 2 | 3 }) {
           >
             Use a sample JD
           </button>
-          <span className="hint">Takes a few seconds. Nothing you paste is stored, except as a cache key hash.</span>
+          <span className="hint">Takes a few seconds. Reports are cached for 7 days so a repeat costs nothing.</span>
         </div>
       </form>
 

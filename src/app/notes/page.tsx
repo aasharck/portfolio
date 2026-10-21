@@ -14,8 +14,8 @@ export default function NotesIndex() {
         <p className="crumbs">Corpus</p>
         <h1>Every fact on this site, with its source.</h1>
         <p>
-          The pages, the fit check and the chat all read from these notes and nothing else. {corpus.docs.length} documents,{" "}
-          {corpus.chunks.length} sections, each ending in the line it came from.
+          The pages, the fit check and the chat all read from these notes and nothing else. {corpus.docs.length}{" "}
+          documents, {corpus.chunks.length} sections, each ending in the line it came from.
         </p>
       </header>
       <ol className="rows" style={{ marginTop: 0, borderTop: 0 }}>

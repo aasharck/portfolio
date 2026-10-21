@@ -21,7 +21,7 @@ export function Hood({ trace }: { trace: Trace }) {
         <span>{trace.latencyMs} ms</span>
         {trace.cached && <span>cached</span>}
       </summary>
-      <div className="hood-body">
+      <div className="hood-body" tabIndex={0} role="region" aria-label="Trace details">
         <h4>Mode</h4>
         <p style={{ margin: 0 }}>
           <span className="k">{trace.mode}</span> · {trace.modeReason}
@@ -76,7 +76,8 @@ export function Hood({ trace }: { trace: Trace }) {
           <ol>
             {trace.usage.map((u, i) => (
               <li key={i}>
-                {u.model}: {u.inputTokens} in{u.cacheReadTokens ? ` + ${u.cacheReadTokens} cached` : ""} / {u.outputTokens} out
+                {u.model}: {u.inputTokens} in{u.cacheReadTokens ? ` + ${u.cacheReadTokens} cached` : ""} /{" "}
+                {u.outputTokens} out
               </li>
             ))}
           </ol>

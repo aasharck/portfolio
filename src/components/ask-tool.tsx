@@ -66,7 +66,15 @@ export function AskTool() {
             <span>Your question</span>
             <span>answers only from the corpus, with sources</span>
           </span>
-          <input ref={inputRef} type="text" name="q" required maxLength={500} autoComplete="off" placeholder="e.g. What did he build on AWS?" />
+          <input
+            ref={inputRef}
+            type="text"
+            name="q"
+            required
+            maxLength={500}
+            autoComplete="off"
+            placeholder="e.g. What did he build on AWS?"
+          />
         </label>
         <div className="tool-row">
           <button className="btn" type="submit" disabled={pending}>

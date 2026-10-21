@@ -3,16 +3,7 @@
 // tests can drive it with a memory store and a fake model.
 
 import { corpus } from "./corpus";
-import {
-  LIMITS,
-  cacheGet,
-  cacheSet,
-  rateLimit,
-  reserveBudget,
-  settleBudget,
-  type Route,
-  type Store,
-} from "./guard";
+import { LIMITS, cacheGet, cacheSet, rateLimit, reserveBudget, settleBudget, type Route, type Store } from "./guard";
 import type { ModeInfo } from "./llm";
 import type { Trace } from "./trace";
 
@@ -30,7 +21,10 @@ export async function guarded<T extends { trace: Trace }>(opts: {
 
   const rl = await rateLimit(store, route, ip);
   if (!rl.ok) {
-    return { ok: false, message: `Too many requests from your network. Try again in ${Math.ceil(rl.retryAfterSec / 60)} min.` };
+    return {
+      ok: false,
+      message: `Too many requests from your network. Try again in ${Math.ceil(rl.retryAfterSec / 60)} min.`,
+    };
   }
 
   // The corpus build time is part of the key, so a content change invalidates old answers.

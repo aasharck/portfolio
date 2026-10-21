@@ -22,7 +22,10 @@ export async function fitAction(_prev: FitState, form: FormData): Promise<FitSta
   const jd = String(form.get("jd") ?? "").trim();
   if (jd.length < LIMITS.jdMinChars) return { jd, error: "Paste the full job description (at least a few lines)." };
   if (jd.length > LIMITS.jdChars) {
-    return { jd, error: `That's ${jd.length.toLocaleString()} characters; the limit is ${LIMITS.jdChars.toLocaleString()}. Trim the company blurb and benefits.` };
+    return {
+      jd,
+      error: `That's ${jd.length.toLocaleString()} characters; the limit is ${LIMITS.jdChars.toLocaleString()}. Trim the company blurb and benefits.`,
+    };
   }
   const mode = currentMode();
   const llm = mode.mode === "live" ? anthropicLlm() : undefined;

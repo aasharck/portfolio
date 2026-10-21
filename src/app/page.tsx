@@ -66,22 +66,62 @@ export default function Home() {
   return (
     <>
       <section className="hero" aria-labelledby="hero-title">
-        <p className="kicker mono">Full-stack + AI engineer · Dubai, UAE · 5+ years</p>
-        <h1 id="hero-title">
-          I build AI systems that <em>ship</em>, and I can show the receipts.
-        </h1>
-        <p className="sub">
-          <strong>SitesGen</strong>, my multi-agent SaaS, finds local businesses with failing websites, builds each one a
-          new site and writes the pitch. Eight agents on Claude, about <strong>$0.33</strong> of model spend per site,
-          built and launched solo in about a month.
-        </p>
-        <div className="actions">
-          <Link className="btn" href="#fit">
-            Paste a job description →
-          </Link>
-          <Link className="btn ghost" href="/work/sitesgen">
-            Read the SitesGen case study
-          </Link>
+        <div className="hero-grid">
+          <div>
+            <p className="kicker mono">Full-stack + AI engineer · Dubai, UAE · 5+ years</p>
+            <h1 id="hero-title">
+              I build AI systems that <em>ship</em>, and I can show the receipts.
+            </h1>
+            <p className="sub">
+              <strong>SitesGen</strong>, my multi-agent SaaS, finds local businesses with failing websites, builds each
+              one a new site and writes the pitch. Eight agents on Claude, about <strong>$0.33</strong> of model spend
+              per site, built and launched solo in about a month.
+            </p>
+            <div className="actions">
+              <Link className="btn" href="#fit">
+                Paste a job description →
+              </Link>
+              <Link className="btn ghost" href="/work/sitesgen">
+                Read the SitesGen case study
+              </Link>
+            </div>
+          </div>
+          <aside className="receipt mono" aria-label="Receipt: model spend for one SitesGen site">
+            <p className="receipt-head">
+              SITESGEN · 1 generated site
+              <br />
+              model spend, measured per job
+            </p>
+            <dl>
+              <div>
+                <dt>design plan · Opus</dt>
+                <dd>$0.17</dd>
+              </div>
+              <div>
+                <dt>share of the scan</dt>
+                <dd>$0.07</dd>
+              </div>
+              <div>
+                <dt>pitch · Opus</dt>
+                <dd>$0.05</dd>
+              </div>
+              <div>
+                <dt>photo reader · Haiku</dt>
+                <dd>$0.04</dd>
+              </div>
+              <div>
+                <dt>build · code, no model</dt>
+                <dd>$0.00</dd>
+              </div>
+              <div className="receipt-total">
+                <dt>total</dt>
+                <dd>≈ $0.33</dd>
+              </div>
+            </dl>
+            <p className="receipt-foot">
+              <Link href="/work/sitesgen#cost-per-site">source: SitesGen README →</Link>
+            </p>
+          </aside>
         </div>
         <dl className="ledger" aria-label="In numbers">
           <div>
@@ -111,8 +151,8 @@ export default function Home() {
           <h2 id="fit-title">Paste a job description. Get the evidence, requirement by requirement.</h2>
           <p className="lede">
             An agent pulls out the requirements, searches my CV and project notes for each one, and cites what it finds,
-            or says plainly that there is no direct evidence. Every quote is checked against its source in code before you
-            see it. Open &ldquo;Under the hood&rdquo; for the retrieved chunks, scores, tokens and cost.
+            or says plainly that there is no direct evidence. Every quote is checked against its source in code before
+            you see it. Open &ldquo;Under the hood&rdquo; for the retrieved chunks, scores, tokens and cost.
           </p>
           <FitTool />
         </div>
@@ -140,8 +180,8 @@ export default function Home() {
               <h3>SitesGen</h3>
               <p>
                 A multi-tenant SaaS for people who sell websites to local businesses. A pipeline of eight agents scans a
-                neighbourhood, scores every business&apos;s website, designs and builds each prospect a new site from its
-                own photos and reviews, and writes the pitch.
+                neighbourhood, scores every business&apos;s website, designs and builds each prospect a new site from
+                its own photos and reviews, and writes the pitch.
               </p>
               <ul className="facts">
                 <li>
@@ -154,7 +194,9 @@ export default function Home() {
                 </li>
                 <li>
                   <span>Platform</span>
-                  <span>Next.js 16, Supabase with row-level security, a resumable job queue, Puppeteer, Dodo billing</span>
+                  <span>
+                    Next.js 16, Supabase with row-level security, a resumable job queue, Puppeteer, Dodo billing
+                  </span>
                 </li>
                 <li>
                   <span>Status</span>
@@ -207,8 +249,8 @@ export default function Home() {
         <div>
           <h2 id="ask-title">Ask about my work. It answers from the record or not at all.</h2>
           <p className="lede">
-            Answers come only from the same corpus as this page, with numbered sources. When nothing covers the question it
-            says so instead of guessing, before any model is called.
+            Answers come only from the same corpus as this page, with numbered sources. When nothing covers the question
+            it says so instead of guessing, before any model is called.
           </p>
           <AskTool />
         </div>

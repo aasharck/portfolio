@@ -13,8 +13,8 @@ export default function AskPage() {
         <p className="crumbs">Ask</p>
         <h1>Ask about my work.</h1>
         <p>
-          Answers come only from the corpus behind this site, each with numbered sources. If nothing covers the question,
-          it says so instead of guessing.
+          Answers come only from the corpus behind this site, each with numbered sources. If nothing covers the
+          question, it says so instead of guessing.
         </p>
       </header>
       <section className="sec" aria-label="Ask tool">

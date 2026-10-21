@@ -56,9 +56,11 @@ export interface Requirement {
 const SIGNAL =
   /\b(experience|experienced|proficien|familiar|knowledge|understanding|degree|years?|strong|ability|expert|hands-on|background|comfortable|skilled|track record|you have|you've|must|required|solid|deep|working with|built|building|shipp?(ed|ing)?|production)\b/i;
 const NICE_HEADING = /\b(nice|bonus|preferred|plus|desirable|ideally|good to have)\b/i;
-const REQ_HEADING = /\b(requirements?|qualifications?|you have|you bring|what we.re looking for|about you|skills|must|who you are|experience)\b/i;
+const REQ_HEADING =
+  /\b(requirements?|qualifications?|you have|you bring|what we.re looking for|about you|skills|must|who you are|experience)\b/i;
 const RESP_HEADING = /\b(responsibilities|what you.ll do|the role|you will|day to day|your impact)\b/i;
-const SKIP = /\b(salary|benefits?|visa|insurance|equal opportunity|apply|holiday|leave|perks|office|hybrid|remote|about us|our mission|we are|we're a)\b/i;
+const SKIP =
+  /\b(salary|benefits?|visa|insurance|equal opportunity|apply|holiday|leave|perks|office|hybrid|remote|about us|our mission|we are|we're a)\b/i;
 
 function isHeading(line: string): boolean {
   const words = line.split(/\s+/).length;
@@ -71,7 +73,8 @@ export function extractRequirementsRules(jd: string): { roleTitle: string | null
     .map((l) => l.trim())
     .filter(Boolean);
   const roleTitle =
-    lines.find((l) => /\b(engineer|developer|architect|lead|scientist)\b/i.test(l) && l.split(/\s+/).length <= 10) ?? null;
+    lines.find((l) => /\b(engineer|developer|architect|lead|scientist)\b/i.test(l) && l.split(/\s+/).length <= 10) ??
+    null;
 
   const req: Requirement[] = [];
   const resp: Requirement[] = [];
@@ -80,7 +83,13 @@ export function extractRequirementsRules(jd: string): { roleTitle: string | null
     const isBullet = /^([-*•·▪◦]|\d+[.)])\s+/.test(raw);
     const line = raw.replace(/^([-*•·▪◦]|\d+[.)]|#+)\s*/, "").trim();
     if (!isBullet && isHeading(line)) {
-      section = NICE_HEADING.test(line) ? "nice" : REQ_HEADING.test(line) ? "req" : RESP_HEADING.test(line) ? "resp" : "other";
+      section = NICE_HEADING.test(line)
+        ? "nice"
+        : REQ_HEADING.test(line)
+          ? "req"
+          : RESP_HEADING.test(line)
+            ? "resp"
+            : "other";
       continue;
     }
     if (SKIP.test(line) && !SIGNAL.test(line)) continue;
@@ -164,7 +173,12 @@ For each requirement you get the sources retrieved from his CV and project notes
 function assessUser(reqs: Requirement[], perReq: Hit[][]): string {
   return reqs
     .map((r, i) => {
-      const src = perReq[i].map((h) => `  <source id="${h.chunk.id}" title="${h.chunk.docTitle} › ${h.chunk.heading}">\n${h.chunk.text}\n  </source>`).join("\n");
+      const src = perReq[i]
+        .map(
+          (h) =>
+            `  <source id="${h.chunk.id}" title="${h.chunk.docTitle} › ${h.chunk.heading}">\n${h.chunk.text}\n  </source>`,
+        )
+        .join("\n");
       return `<requirement index="${i}" priority="${r.priority}">${r.text}\n${src || "  (no sources retrieved)"}\n</requirement>`;
     })
     .join("\n\n");
@@ -226,7 +240,10 @@ export function ruleSummary(items: FitItem[]): FitReport["summary"] {
           : "Partial match: several requirements have no direct evidence.";
   return {
     headline: `${fit} ${c.strong} of ${n} requirements have direct evidence, ${c.partial} partial, ${c.none} none.`,
-    strengths: items.filter((i) => i.verdict === "strong").slice(0, 3).map((i) => i.text),
+    strengths: items
+      .filter((i) => i.verdict === "strong")
+      .slice(0, 3)
+      .map((i) => i.text),
     gaps: items.filter((i) => i.verdict === "none").map((i) => i.text),
   };
 }
@@ -244,7 +261,12 @@ export async function assessFit(jd: string, deps: FitDeps): Promise<FitReport> {
     const est =
       worstCaseUsd(MODELS.extract, EXTRACT_SYSTEM.length + jd.length, 1500) +
       worstCaseUsd(MODELS.report, ASSESS_SYSTEM.length + MAX_REQUIREMENTS * 4 * 1200, 4000);
-    const ok = await tr.step("guard", "reserve_budget", () => deps.reserve!(est), (r) => `worst case $${est.toFixed(4)} → ${r ? "reserved" : "denied"}`);
+    const ok = await tr.step(
+      "guard",
+      "reserve_budget",
+      () => deps.reserve!(est),
+      (r) => `worst case $${est.toFixed(4)} → ${r ? "reserved" : "denied"}`,
+    );
     if (!ok) throw new BudgetError();
   }
 
@@ -255,12 +277,23 @@ export async function assessFit(jd: string, deps: FitDeps): Promise<FitReport> {
     const res = await tr.step(
       "model",
       `${MODELS.extract} · extract_requirements`,
-      () => llm.structured({ model: MODELS.extract, system: EXTRACT_SYSTEM, user: jd, schema: ExtractSchema, maxTokens: 1500, effort: "low" }),
-      (r) => `${r.output.requirements.length} requirements · ${r.usage.inputTokens} in / ${r.usage.outputTokens} out · $${costUsd(r.usage).toFixed(5)}`,
+      () =>
+        llm.structured({
+          model: MODELS.extract,
+          system: EXTRACT_SYSTEM,
+          user: jd,
+          schema: ExtractSchema,
+          maxTokens: 1500,
+          effort: "low",
+        }),
+      (r) =>
+        `${r.output.requirements.length} requirements · ${r.usage.inputTokens} in / ${r.usage.outputTokens} out · $${costUsd(r.usage).toFixed(5)}`,
     );
     tr.usage.push(res.usage);
     roleTitle = res.output.role_title;
-    reqs = res.output.requirements.slice(0, MAX_REQUIREMENTS).map((r) => ({ text: r.text, priority: r.priority, query: `${r.text} ${r.search_query}` }));
+    reqs = res.output.requirements
+      .slice(0, MAX_REQUIREMENTS)
+      .map((r) => ({ text: r.text, priority: r.priority, query: `${r.text} ${r.search_query}` }));
   } else {
     const res = await tr.step(
       "tool",
@@ -289,7 +322,15 @@ export async function assessFit(jd: string, deps: FitDeps): Promise<FitReport> {
     const res = await tr.step(
       "model",
       `${MODELS.report} · assess_evidence`,
-      () => llm.structured({ model: MODELS.report, system: ASSESS_SYSTEM, user: assessUser(reqs, perReq), schema: AssessSchema, maxTokens: 4000, effort: "medium" }),
+      () =>
+        llm.structured({
+          model: MODELS.report,
+          system: ASSESS_SYSTEM,
+          user: assessUser(reqs, perReq),
+          schema: AssessSchema,
+          maxTokens: 4000,
+          effort: "medium",
+        }),
       (r) => `${r.usage.inputTokens} in / ${r.usage.outputTokens} out · $${costUsd(r.usage).toFixed(5)}`,
     );
     tr.usage.push(res.usage);
@@ -312,9 +353,18 @@ export async function assessFit(jd: string, deps: FitDeps): Promise<FitReport> {
       return { text: r.text, priority: r.priority, verdict, evidence, note };
     });
     summary = res.output.summary;
-    tr.note("check", "verify_citations", `${dropped} citation(s) dropped: source not retrieved for that requirement, or quote not found verbatim`);
+    tr.note(
+      "check",
+      "verify_citations",
+      `${dropped} citation(s) dropped: source not retrieved for that requirement, or quote not found verbatim`,
+    );
   } else {
-    items = await tr.step("model", "mock_assess (rules)", () => mockAssess(reqs, perReq), () => `mock mode: verdict from coverage (strong ≥ ${STRONG}, partial ≥ ${PARTIAL}); no model called, $0`);
+    items = await tr.step(
+      "model",
+      "mock_assess (rules)",
+      () => mockAssess(reqs, perReq),
+      () => `mock mode: verdict from coverage (strong ≥ ${STRONG}, partial ≥ ${PARTIAL}); no model called, $0`,
+    );
     summary = ruleSummary(items);
     tr.note("check", "verify_citations", "quotes are taken verbatim from retrieved chunks: 0 dropped");
   }

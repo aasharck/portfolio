@@ -7,7 +7,8 @@ import { MODELS } from "@/lib/llm";
 
 export const metadata: Metadata = {
   title: "Under the hood",
-  description: "How this site's fit check and chat work: build-time BM25 retrieval, verified citations, refusals, and a hard daily budget.",
+  description:
+    "How this site's fit check and chat work: build-time BM25 retrieval, verified citations, refusals, and a hard daily budget.",
 };
 
 const STEPS = [
@@ -48,8 +49,8 @@ export default function HowItWorks() {
         <p className="crumbs">Under the hood</p>
         <h1>How this site answers, and why it won&apos;t make things up.</h1>
         <p>
-          Every answer on this site has an &ldquo;Under the hood&rdquo; panel with the retrieved chunks and their scores,
-          each step, tokens, cost in cents and latency. This page explains what you are looking at.
+          Every answer on this site has an &ldquo;Under the hood&rdquo; panel with the retrieved chunks and their
+          scores, each step, tokens, cost in cents and latency. This page explains what you are looking at.
         </p>
       </header>
       {STEPS.map((s, i) => (

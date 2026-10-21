@@ -61,12 +61,14 @@ export function search(index: CorpusIndex, query: string, k = 5): Hit[] {
     return { chunk, score, coverage: totalWeight ? covered / totalWeight : 0, matched };
   });
 
-  return hits
-    .filter((h) => h.score > 0)
-    // Rank by BM25 scaled by coverage: a chunk that answers every part of the
-    // query beats one that repeats a single term.
-    .sort((a, b) => b.score * (0.5 + b.coverage) - a.score * (0.5 + a.coverage))
-    .slice(0, k);
+  return (
+    hits
+      .filter((h) => h.score > 0)
+      // Rank by BM25 scaled by coverage: a chunk that answers every part of the
+      // query beats one that repeats a single term.
+      .sort((a, b) => b.score * (0.5 + b.coverage) - a.score * (0.5 + a.coverage))
+      .slice(0, k)
+  );
 }
 
 /** The sentence in a chunk that best matches the query: used as the quoted evidence. */
@@ -95,8 +97,14 @@ export function bestSentence(chunk: Chunk, query: string): string {
 
 /** True when `quote` appears in the chunk text (whitespace and case-insensitive). */
 export function quoteIsInChunk(quote: string, chunk: Chunk): boolean {
-  const norm = (s: string) => s.toLowerCase().replace(/[\s"“”'‘’]+/g, " ").trim();
-  const q = norm(quote).replace(/^\.+|\.+$/g, "").replace(/…/g, "");
+  const norm = (s: string) =>
+    s
+      .toLowerCase()
+      .replace(/[\s"“”'‘’]+/g, " ")
+      .trim();
+  const q = norm(quote)
+    .replace(/^\.+|\.+$/g, "")
+    .replace(/…/g, "");
   if (q.length < 12) return false;
   return norm(chunk.text).includes(q);
 }

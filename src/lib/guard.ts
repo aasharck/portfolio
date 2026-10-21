@@ -127,7 +127,12 @@ export interface Reservation {
 }
 
 /** Reserve the worst-case cost before calling a model. Denied if it would cross the cap. */
-export async function reserveBudget(store: Store, usd: number, capUsd = LIMITS.dailyBudgetUsd, now = new Date()): Promise<Reservation> {
+export async function reserveBudget(
+  store: Store,
+  usd: number,
+  capUsd = LIMITS.dailyBudgetUsd,
+  now = new Date(),
+): Promise<Reservation> {
   const micro = Math.ceil(usd * MICRO);
   const after = await store.incrBy(budgetKey(now), micro, 2 * 86400);
   if (after > capUsd * MICRO) {
@@ -138,7 +143,12 @@ export async function reserveBudget(store: Store, usd: number, capUsd = LIMITS.d
 }
 
 /** After the call: replace the reservation with what it actually cost. */
-export async function settleBudget(store: Store, reservedUsd: number, actualUsd: number, now = new Date()): Promise<void> {
+export async function settleBudget(
+  store: Store,
+  reservedUsd: number,
+  actualUsd: number,
+  now = new Date(),
+): Promise<void> {
   const delta = Math.ceil(actualUsd * MICRO) - Math.ceil(reservedUsd * MICRO);
   if (delta !== 0) await store.incrBy(budgetKey(now), delta, 2 * 86400);
 }
@@ -150,7 +160,11 @@ export async function spentToday(store: Store, now = new Date()): Promise<number
 // ---- answer cache --------------------------------------------------------
 
 export function normaliseForCache(s: string): string {
-  return s.toLowerCase().replace(/\s+/g, " ").replace(/[?!.]+$/, "").trim();
+  return s
+    .toLowerCase()
+    .replace(/\s+/g, " ")
+    .replace(/[?!.]+$/, "")
+    .trim();
 }
 
 export async function cacheGet<T>(store: Store, route: Route, input: string, mode: string): Promise<T | null> {

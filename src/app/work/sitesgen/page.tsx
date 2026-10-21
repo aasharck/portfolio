@@ -23,14 +23,14 @@ const STAGES = [
 
 function Diagram() {
   return (
-    <figure className="diagram" aria-labelledby="dg-cap">
+    <figure className="diagram" aria-labelledby="dg-cap" tabIndex={0}>
       <svg viewBox="0 0 1040 300" role="img" aria-labelledby="dg-title dg-desc">
         <title id="dg-title">SitesGen agent pipeline</title>
         <desc id="dg-desc">
-          Discovery, Screening and Visual check run on a scan. The user approves a prospect. Photo reader, UI/UX plan, Build
-          and Outreach run as queued jobs. Design review critiques a built page and sends plan changes back to the planner.
-          All jobs run from a Postgres queue drained by a worker, and every table is scoped to a workspace by row-level
-          security.
+          Discovery, Screening and Visual check run on a scan. The user approves a prospect. Photo reader, UI/UX plan,
+          Build and Outreach run as queued jobs. Design review critiques a built page and sends plan changes back to the
+          planner. All jobs run from a Postgres queue drained by a worker, and every table is scoped to a workspace by
+          row-level security.
         </desc>
         <style>{`
           .dg-box{fill:var(--paper);stroke:var(--ink);stroke-width:1.2}
@@ -43,7 +43,15 @@ function Diagram() {
           .dg-band{fill:var(--paper-2);stroke:var(--rule)}
         `}</style>
         <defs>
-          <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <marker
+            id="arr"
+            viewBox="0 0 10 10"
+            refX="9"
+            refY="5"
+            markerWidth="7"
+            markerHeight="7"
+            orient="auto-start-reverse"
+          >
             <path d="M0 0L10 5L0 10z" style={{ fill: "var(--ink)" }} />
           </marker>
         </defs>
@@ -57,7 +65,14 @@ function Diagram() {
               {s.model}
             </text>
             {i < STAGES.length - 1 && i !== 2 && (
-              <line className="dg-line" x1={s.x + 125} y1={s.y + 28} x2={STAGES[i + 1].x - 2} y2={s.y + 28} markerEnd="url(#arr)" />
+              <line
+                className="dg-line"
+                x1={s.x + 125}
+                y1={s.y + 28}
+                x2={STAGES[i + 1].x - 2}
+                y2={s.y + 28}
+                markerEnd="url(#arr)"
+              />
             )}
           </g>
         ))}
@@ -87,7 +102,8 @@ function Diagram() {
           Postgres job queue · pg_cron worker · checkpoints resume across 300 s ticks
         </text>
         <text className="dg-s" x="24" y="270">
-          every table scoped by workspace_id under RLS · browser key is read-only · writes via server actions after plan checks
+          every table scoped by workspace_id under RLS · browser key is read-only · writes via server actions after plan
+          checks
         </text>
       </svg>
       <figcaption id="dg-cap" className="hint" style={{ marginTop: "0.5rem" }}>
@@ -115,7 +131,10 @@ export default function SitesGenCaseStudy() {
     "stack",
     "what-he-d-do-next",
   ];
-  const ordered = [...order.map((a) => byAnchor[a]).filter(Boolean), ...chunks.filter((c) => !order.includes(c.anchor))];
+  const ordered = [
+    ...order.map((a) => byAnchor[a]).filter(Boolean),
+    ...chunks.filter((c) => !order.includes(c.anchor)),
+  ];
 
   return (
     <article>
@@ -125,9 +144,9 @@ export default function SitesGenCaseStudy() {
         </p>
         <h1>SitesGen: eight agents, one queue, about 33 cents a site.</h1>
         <p>
-          A multi-tenant SaaS that finds local businesses with failing websites, builds each a new one and writes the pitch.
-          I built and launched it solo in about a month. It is live, with subscription billing and a first customer on a paid
-          trial.
+          A multi-tenant SaaS that finds local businesses with failing websites, builds each a new one and writes the
+          pitch. I built and launched it solo in about a month. It is live, with subscription billing and a first
+          customer on a paid trial.
         </p>
         <div className="actions">
           <a className="btn ghost" href="https://www.sitesgen.com" rel="noopener">
