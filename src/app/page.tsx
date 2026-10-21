@@ -158,10 +158,16 @@ export default function Home() {
             that are <em>measured, not guessed.</em>
           </h2>
           <div className="about-grid">
-            <div className="about-mark" aria-hidden="true">
-              <em>A</em>
-              <span className="caps mono">DXB_UAE</span>
-            </div>
+            <figure className="about-mark">
+              <Image
+                src="/work/aashar-red.jpg"
+                alt="Portrait of Aashar CK"
+                width={1254}
+                height={940}
+                sizes="(max-width: 860px) 100vw, 40vw"
+              />
+              <figcaption className="caps mono">DXB_UAE</figcaption>
+            </figure>
             <span className="caps about-label">(Info)</span>
             <div className="about-text">
               <p>
