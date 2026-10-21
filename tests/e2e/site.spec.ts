@@ -35,9 +35,9 @@ for (const path of PAGES) {
 
 test("hero says what he does in the first screen", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByRole("heading", { level: 1 })).toContainText("AI systems that ship");
-  await expect(page.getByText("$0.33").first()).toBeInViewport();
-  await expect(page.getByRole("link", { name: /Paste a job description/ })).toBeInViewport();
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Full-stack & AI engineer");
+  await expect(page.getByText("Available immediately").first()).toBeInViewport();
+  await expect(page.getByRole("link", { name: /Check my fit/ })).toBeInViewport();
 });
 
 test("fit check: sample JD → cited report with an honest gap and a trace", async ({ page }, info) => {

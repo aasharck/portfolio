@@ -30,7 +30,7 @@ const STEPS = [
   },
   {
     h: "Chat",
-    p: `${MODELS.chat}, the cheapest current Claude model, at low effort, with the top 5 chunks as numbered sources and a 120-word limit.`,
+    p: `OpenAI ${MODELS.chat} (the newest small OpenAI model, $0.10 / $0.50 per million tokens) at low reasoning effort, with the top 5 chunks as numbered sources and a 120-word limit. About $0.0005 an answer.`,
   },
   {
     h: "Guardrails",

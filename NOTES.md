@@ -1,5 +1,7 @@
 # Portfolio v2: part 1 notes (Wed Oct 21 2026, morning run)
 
+> **Update, Oct 21 after review:** redesigned in the "Bold Swiss studio" direction Aashar picked (Host Grotesk, grey/ink/acid-lime, magnetic CTAs, marquee, cursor previews); hero rewritten in plain words with "Available immediately"; SitesGen moved to Selected work; chat now on OpenAI `gpt-6-luna`, fit check still on Claude. Tests after the redesign: 42 unit, 26 e2e (axe 0 violations, light + dark), Lighthouse mobile 98/100/100/100 on `/`, `/work/sitesgen`, `/fit`, `/ask`, desktop 100s. Key screenshots in `docs/key-screens/` are the new design. Details in DECISIONS.md.
+
 Branch `v2`, 4 commits on top of `main`, **nothing pushed, nothing deployed, $0 spent** (no API key on this machine; every AI path ran in mock mode). Choices and reasons: `DECISIONS.md`.
 
 ## What's built
@@ -18,7 +20,7 @@ A Next.js 16.4 site where the AI features are the proof.
 
 - **Corpus:** `content/*.md`, every fact from the CV, SitesGen README/HANDOFF, demo READMEs and Upwork notes, each section ending in `> Source:`. Phone number left off (a unit test checks).
 - **Retrieval at $0:** build-time BM25 (`scripts/build-corpus.ts` → `src/generated/corpus.json`), heading weighting, alias table, idf-weighted coverage score.
-- **Models:** chat `claude-haiku-5-5`; JD extraction `claude-haiku-5-5`; JD judgement `claude-sonnet-5-5` with server-side refusal fallback. Structured outputs via `betaZodOutputFormat`. All overridable by env.
+- **Models:** chat `gpt-6-luna` (OpenAI, since the redesign; was `claude-haiku-5-5`); JD extraction `claude-haiku-5-5`; JD judgement `claude-sonnet-5-5` with server-side refusal fallback. Structured outputs via `betaZodOutputFormat`. All overridable by env.
 - **Guardrails:** live mode needs `ANTHROPIC_API_KEY` **and** Upstash Redis; hard daily budget (default $0.50, reserve worst case → settle actual); per-IP rate limit (12 questions / 4 fit checks per 10 min); 7-day answer cache; 500 / 8,000 char limits. All in `.env.example`.
 
 ## Results
@@ -48,7 +50,7 @@ Full set (every page × desktop/phone × light/dark, plus fit and ask flows): ru
 ## For Aashar to decide
 
 1. Lead with **$0.33** per site (CV/README) or the later **≈ $0.18** (HANDOFF §3ab)? Site uses $0.33, mentions $0.18 in the case study.
-2. Add "Available immediately" (on your CV) once you've left on Oct 23?
+2. ~~"Available immediately"~~ added Oct 21 at Aashar's request.
 3. `legacy-2023/` holds the old site (moved, not deleted). `git rm -r legacy-2023` when you're happy.
 
 ## Part 2 (tonight 21:00) should do

@@ -23,12 +23,16 @@ function subscribe(fn: () => void) {
 
 export function ThemeToggle() {
   const theme = useSyncExternalStore<Theme | null>(subscribe, read, () => null);
-  if (!theme) return null; // JS off or server render: the OS preference applies
+  // Server render / JS off: keep the button's space (no layout shift) but hide it;
+  // the OS preference applies.
   const next: Theme = theme === "dark" ? "light" : "dark";
   return (
     <button
       type="button"
       className="theme-toggle"
+      style={theme ? undefined : { visibility: "hidden" }}
+      aria-hidden={theme ? undefined : true}
+      tabIndex={theme ? undefined : -1}
       aria-label={`Switch to ${next} theme`}
       onClick={() => {
         document.documentElement.dataset.theme = next;

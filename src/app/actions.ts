@@ -4,7 +4,7 @@ import { headers } from "next/headers";
 import { ask, type Answer } from "@/lib/ask";
 import { assessFit, type FitReport } from "@/lib/fit";
 import { LIMITS, getStore } from "@/lib/guard";
-import { anthropicLlm, currentMode } from "@/lib/llm";
+import { anthropicLlm, currentMode, openaiLlm } from "@/lib/llm";
 import { guarded } from "@/lib/run";
 
 async function clientIp(): Promise<string> {
@@ -27,7 +27,7 @@ export async function fitAction(_prev: FitState, form: FormData): Promise<FitSta
       error: `That's ${jd.length.toLocaleString()} characters; the limit is ${LIMITS.jdChars.toLocaleString()}. Trim the company blurb and benefits.`,
     };
   }
-  const mode = currentMode();
+  const mode = currentMode("fit");
   const llm = mode.mode === "live" ? anthropicLlm() : undefined;
   const res = await guarded({
     route: "fit",
@@ -52,8 +52,8 @@ export async function askAction(prev: AskState, form: FormData): Promise<AskStat
   if (question.length > LIMITS.questionChars) {
     return { turns, error: `Keep questions under ${LIMITS.questionChars} characters.` };
   }
-  const mode = currentMode();
-  const llm = mode.mode === "live" ? anthropicLlm() : undefined;
+  const mode = currentMode("ask");
+  const llm = mode.mode === "live" ? openaiLlm() : undefined;
   const res = await guarded({
     route: "ask",
     input: question,

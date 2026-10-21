@@ -1,20 +1,19 @@
 import type { Metadata, Viewport } from "next";
-import { IBM_Plex_Mono, Newsreader } from "next/font/google";
+import { Host_Grotesk, JetBrains_Mono } from "next/font/google";
 import Link from "next/link";
 import { ThemeToggle } from "@/components/theme-toggle";
 import "./globals.css";
 
-const serif = Newsreader({
-  variable: "--font-serif",
+const sans = Host_Grotesk({
+  variable: "--font-sans",
   subsets: ["latin"],
-  style: ["normal", "italic"],
   display: "swap",
 });
 
-const mono = IBM_Plex_Mono({
+const mono = JetBrains_Mono({
   variable: "--font-mono",
   subsets: ["latin"],
-  weight: ["400", "500"],
+  weight: ["400", "600"],
   display: "swap",
 });
 
@@ -23,11 +22,11 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Aashar CK: full-stack and AI engineer, Dubai",
+    default: "Aashar CK · Full-stack & AI engineer, Dubai",
     template: "%s · Aashar CK",
   },
   description:
-    "Full-stack engineer in Dubai who ships AI systems. Built SitesGen solo: eight Claude agents, about $0.33 of model spend per generated site. Paste a job description and get a cited fit report.",
+    "Full-stack and AI engineer in Dubai, available immediately. I build web products end to end and the AI inside them. Paste a job description and get a cited fit report.",
   openGraph: {
     title: "Aashar CK: full-stack and AI engineer",
     description: "Paste a job description and get an evidence-cited fit report. Every claim links to its source.",
@@ -37,8 +36,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f4f1ea" },
-    { media: "(prefers-color-scheme: dark)", color: "#121110" },
+    { media: "(prefers-color-scheme: light)", color: "#e7e7e3" },
+    { media: "(prefers-color-scheme: dark)", color: "#0f0f0e" },
   ],
 };
 
@@ -47,7 +46,7 @@ const themeScript = `try{var t=localStorage.getItem("theme");if(t==="light"||t==
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${serif.variable} ${mono.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${sans.variable} ${mono.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
@@ -58,13 +57,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <header className="shell">
           <div className="masthead">
             <Link href="/" className="wordmark">
-              Aashar CK <span>/ full-stack + AI engineer</span>
+              Aashar CK
             </Link>
             <nav className="nav" aria-label="Main">
-              <Link href="/work/sitesgen">SitesGen</Link>
+              <Link href="/#work">Work</Link>
               <Link href="/fit">Fit check</Link>
               <Link href="/ask">Ask</Link>
-              <Link href="/how-it-works">Under the hood</Link>
               <Link href="/#contact">Contact</Link>
               <ThemeToggle />
             </nav>
@@ -75,9 +73,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </main>
         <footer className="shell">
           <div className="footer">
-            <span>Aashar CK · Dubai, UAE · aasharck@gmail.com</span>
+            <span>© 2026 Aashar CK · Dubai, UAE</span>
             <span>
-              Every fact on this site is in <Link href="/notes">the corpus</Link>, with its source.
+              <Link href="/how-it-works">How this site works</Link> ·{" "}
+              <Link href="/notes">Every fact, with its source</Link>
             </span>
           </div>
         </footer>

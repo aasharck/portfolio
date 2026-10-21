@@ -81,6 +81,7 @@ describe("costs", () => {
     expect(costUsd({ model: "claude-sonnet-5-5", inputTokens: 1e6, outputTokens: 0, cacheReadTokens: 0 })).toBeCloseTo(
       2,
     );
+    expect(costUsd({ model: "gpt-6-luna", inputTokens: 1e6, outputTokens: 1e6, cacheReadTokens: 0 })).toBeCloseTo(0.6);
     expect(costUsd({ model: "claude-new", inputTokens: 1e6, outputTokens: 0, cacheReadTokens: 0 })).toBeCloseTo(4);
     expect(worstCaseUsd("claude-haiku-5-5", 3000, 600)).toBeCloseTo((1000 * 0.1 + 600 * 0.5) / 1e6);
   });
@@ -91,16 +92,21 @@ describe("mode", () => {
     const env = { ...process.env };
     try {
       delete process.env.ANTHROPIC_API_KEY;
+      delete process.env.OPENAI_API_KEY;
       delete process.env.MOCK_LLM;
-      expect(currentMode().mode).toBe("mock");
+      expect(currentMode("fit").mode).toBe("mock");
       process.env.ANTHROPIC_API_KEY = "sk-test";
       delete process.env.UPSTASH_REDIS_REST_URL;
-      expect(currentMode()).toEqual({ mode: "mock", reason: expect.stringMatching(/budget store/) });
+      expect(currentMode("fit")).toEqual({ mode: "mock", reason: expect.stringMatching(/budget store/) });
       process.env.UPSTASH_REDIS_REST_URL = "https://x";
       process.env.UPSTASH_REDIS_REST_TOKEN = "t";
-      expect(currentMode().mode).toBe("live");
+      expect(currentMode("fit").mode).toBe("live");
+      // chat needs its own key: the Anthropic key doesn't switch it on
+      expect(currentMode("ask")).toEqual({ mode: "mock", reason: "no OPENAI_API_KEY" });
+      process.env.OPENAI_API_KEY = "sk-openai-test";
+      expect(currentMode("ask").mode).toBe("live");
       process.env.MOCK_LLM = "1";
-      expect(currentMode().mode).toBe("mock");
+      expect(currentMode("ask").mode).toBe("mock");
     } finally {
       process.env = env;
     }

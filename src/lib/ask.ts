@@ -30,7 +30,7 @@ export interface Answer {
 
 export interface AskDeps {
   mode: ModeInfo;
-  llm?: Llm;
+  llm?: Pick<Llm, "text">;
   index?: CorpusIndex;
   /** Called with the worst-case cost before any model call; return false to block it. */
   reserve?: (usd: number) => Promise<boolean>;

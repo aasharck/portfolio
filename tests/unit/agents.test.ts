@@ -4,7 +4,8 @@ import { describe, expect, it } from "vitest";
 import { ask, checkMarkers, REFUSAL } from "@/lib/ask";
 import { buildIndex } from "@/lib/corpus-build";
 import { assessFit, extractRequirementsRules, ruleSummary } from "@/lib/fit";
-import type { Llm, ModeInfo, Usage } from "@/lib/llm";
+import type OpenAI from "openai";
+import { openaiLlm, type Llm, type ModeInfo, type Usage } from "@/lib/llm";
 
 const dir = join(process.cwd(), "content");
 const index = buildIndex(
@@ -69,7 +70,7 @@ describe("ask: live path (scripted model)", () => {
     expect(a.refused).toBe(false);
     expect(a.answer).not.toContain("[9]");
     expect(a.citations.map((c) => c.n)).toEqual([1]);
-    expect(llm.calls[0].model).toBe("claude-haiku-5-5");
+    expect(llm.calls[0].model).toBe("gpt-6-luna");
     expect(llm.calls[0].user).toContain("[1]");
     expect(a.trace.costUsd).toBeCloseTo((1000 * 0.1 + 200 * 0.5) / 1e6, 10);
   });
@@ -231,5 +232,34 @@ describe("fit: live path (scripted model) verifies every citation", () => {
     const llm = fakeLlm([]);
     await expect(assessFit(JD, { mode: LIVE, llm, index, reserve: async () => false })).rejects.toThrow(/budget/);
     expect(llm.calls).toHaveLength(0);
+  });
+});
+
+describe("openai chat client", () => {
+  it("maps Responses API usage (cached tokens split out) and sends the right request", async () => {
+    let sent: Record<string, unknown> = {};
+    const fake = {
+      responses: {
+        create: async (req: Record<string, unknown>) => {
+          sent = req;
+          return {
+            output_text: "Answer [1]",
+            status: "completed",
+            usage: { input_tokens: 1200, input_tokens_details: { cached_tokens: 200 }, output_tokens: 80 },
+          };
+        },
+      },
+    };
+    const llm = openaiLlm(fake as unknown as OpenAI);
+    const r = await llm.text({ model: "gpt-6-luna", system: "sys", user: "q", maxTokens: 600, effort: "low" });
+    expect(sent).toMatchObject({
+      model: "gpt-6-luna",
+      instructions: "sys",
+      input: "q",
+      max_output_tokens: 600,
+      reasoning: { effort: "low" },
+    });
+    expect(r.output).toBe("Answer [1]");
+    expect(r.usage).toEqual({ model: "gpt-6-luna", inputTokens: 1000, outputTokens: 80, cacheReadTokens: 200 });
   });
 });

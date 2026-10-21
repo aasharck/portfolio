@@ -18,9 +18,6 @@ export default function AskPage() {
         </p>
       </header>
       <section className="sec" aria-label="Ask tool">
-        <div className="rail">
-          <b>→</b>Question
-        </div>
         <AskTool />
       </section>
     </>

@@ -22,8 +22,9 @@ His AI work is production work, not experiments: SitesGen runs a pipeline of eig
 - Email: aasharck@gmail.com
 - GitHub: github.com/aasharck
 - Location: Dubai, UAE
+- Availability: available immediately, for full-stack and AI-engineering roles.
 
-> Source: CV header. (Phone number deliberately left off the site.)
+> Source: CV header ("Available immediately"). Phone number deliberately left off the site.
 
 ## Education
 

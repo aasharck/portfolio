@@ -20,9 +20,6 @@ export default function FitPage() {
         </p>
       </header>
       <section className="sec" aria-label="Fit check tool">
-        <div className="rail">
-          <b>→</b>Paste
-        </div>
         <FitTool headingLevel={2} />
       </section>
     </>
