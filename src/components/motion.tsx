@@ -54,7 +54,8 @@ export function Motion() {
       const q = <T extends Element = HTMLElement>(sel: string) => gsap.utils.toArray<T>(sel);
 
       const ctx = gsap.context(() => {
-        for (const el of q("[data-chars]")) {
+        // Desktop only: on phones the name is the largest paint, so it renders at once.
+        for (const el of matchMedia("(min-width: 861px)").matches ? q("[data-chars]") : []) {
           const split = SplitText.create(el, { type: "chars", mask: "chars" });
           gsap.from(split.chars, { yPercent: 110, duration: 1.2, ease: "expo.out", stagger: 0.035, delay: 0.15 });
         }

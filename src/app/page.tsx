@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { AskTool } from "@/components/ask-tool";
+import { BgVideo } from "@/components/bg-video";
 import { Clock } from "@/components/clock";
 import { FitTool } from "@/components/fit-tool";
 
@@ -131,7 +132,9 @@ export default function Home() {
       <div className="above">
         {/* ---- hero ---- */}
         <section className="hero" aria-labelledby="hero-title">
-          <div className="entry-bg" data-fade-out aria-hidden="true" />
+          <div className="entry-bg" data-fade-out aria-hidden="true">
+            <BgVideo src="/media/hero-liquid.mp4" poster="/media/hero-liquid.jpg" />
+          </div>
           <p className="tagline">
             <em>A full-stack &amp; AI engineer</em> who builds products end to end, and the AI inside them.
           </p>
@@ -327,6 +330,9 @@ export default function Home() {
                 What I <em>do</em>
               </h2>
               <p className="body muted">Hire me for the whole product, or for the AI inside it.</p>
+              <div className="services-media" aria-hidden="true">
+                <BgVideo src="/media/services-swirl.mp4" poster="/media/services-swirl.jpg" />
+              </div>
             </div>
             <ul className="services-list">
               {SERVICES.map(([k, v]) => (
