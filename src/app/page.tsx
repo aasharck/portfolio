@@ -135,7 +135,12 @@ export default function Home() {
         {/* ---- hero ---- */}
         <section className="hero" aria-labelledby="hero-title">
           <div className="entry-bg" data-fade-out aria-hidden="true">
-            <BgVideo src="/media/hero-liquid.mp4" poster="/media/hero-liquid.jpg" />
+            <BgVideo
+              src="/media/hero-liquid.mp4"
+              poster="/media/hero-liquid.jpg"
+              mobileSrc="/media/hero-liquid-mobile.mp4"
+              mobilePoster="/media/hero-liquid-mobile.jpg"
+            />
           </div>
           <p className="tagline">
             <em>A full-stack &amp; AI engineer</em> who builds products end to end, and the AI inside them.

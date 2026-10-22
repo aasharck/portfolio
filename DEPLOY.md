@@ -53,7 +53,7 @@ Leave the rest unset; defaults are in `.env.example` (models, rate limits, max J
 
 ## 5. Smoke test (10 minutes, about 10¢)
 
-1. Open the site on your phone and laptop. Hero video plays on the laptop; the phone shows the still layout.
+1. Open the site on your phone and laptop. The hero video plays on both (on a phone only on a fast connection with data saver off).
 2. **Ask**: "What does a SitesGen site cost in model spend?" → an answer with `[1]`-style sources. Open *Under the hood*: mode **live**, model `gpt-6-luna`, tokens and cost in cents.
 3. **Ask**: "Does he know Kubernetes?" → refused, and the trace says the model wasn't called.
 4. **Fit check**: click *Use a sample JD* → *Run the fit check*. The flag says **Live**; Kubernetes is "no evidence"; every quote links to `/notes/...`. Read it for tone.
