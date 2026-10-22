@@ -189,13 +189,13 @@ export default function Home() {
               <dd>8</dd>
             </div>
             <div>
-              <dt className="caps">AI cost per SitesGen site</dt>
-              <dd>≈ $0.33</dd>
+              <dt className="caps">AI SaaS products live</dt>
+              <dd>2</dd>
             </div>
             <div>
-              <dt className="caps">Audit findings</dt>
+              <dt className="caps">To launch SitesGen, solo</dt>
               <dd>
-                4 <em>High</em> · 2 <em>Med</em>
+                ≈ 1 <em>month</em>
               </dd>
             </div>
           </dl>
