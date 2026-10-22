@@ -356,22 +356,6 @@ code,
   font-size: clamp(1.05rem, 1.25vw, 1.25rem);
   text-decoration: underline;
 }
-.numeral {
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-  gap: 1rem;
-  margin-top: clamp(2rem, 6vw, 5rem);
-}
-.numeral strong {
-  font-size: clamp(7rem, 24vw, 22rem);
-  font-weight: 400;
-  line-height: 0.78;
-  letter-spacing: -0.07em;
-}
-.numeral span {
-  padding-bottom: 0.6rem;
-}
 @media (max-width: 860px) {
   .split {
     grid-template-columns: minmax(0, 1fr);
@@ -1172,13 +1156,14 @@ textarea {
 }
 .about-grid {
   display: grid;
-  grid-template-columns: minmax(0, 5fr) minmax(0, 2fr) minmax(0, 5fr);
+  grid-template-columns: minmax(0, 4fr) minmax(0, 2fr) minmax(0, 6fr);
   gap: 1.5rem;
   align-items: start;
 }
 .about-mark {
   position: relative;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 9 / 16;
+  max-width: 30rem;
   background:
     radial-gradient(70% 80% at 30% 35%, #ff5a2a, transparent 70%),
     radial-gradient(60% 70% at 80% 90%, #7a0d02, transparent 75%), #b8260a;
@@ -1190,10 +1175,19 @@ textarea {
 .about-mark {
   margin: 0;
 }
+.about-mark picture,
 .about-mark img {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+/* phones: the square crop */
+@media (max-width: 860px) {
+  .about-mark {
+    aspect-ratio: 1 / 1;
+    max-width: none;
+  }
 }
 .about-mark .mono {
   position: absolute;
@@ -1214,26 +1208,6 @@ textarea {
   padding: 0.25rem 0;
   text-decoration: underline;
 }
-.numeral {
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-start;
-  gap: 1rem;
-  margin-top: clamp(3rem, 8vw, 7rem);
-  overflow: hidden;
-}
-.numeral strong {
-  display: block;
-  font-size: clamp(8rem, 26vw, 25rem);
-  font-weight: 400;
-  line-height: 0.8;
-  letter-spacing: -0.07em;
-}
-.numeral-tag {
-  color: var(--muted);
-  font-size: 0.75rem;
-  padding-top: 0.6rem;
-}
 @media (max-width: 860px) {
   .about-grid {
     grid-template-columns: minmax(0, 1fr);
@@ -1243,143 +1217,34 @@ textarea {
   }
 }
 
-/* ---- featured project ---- */
-.feature {
-  position: relative;
-  height: 220vh;
-}
-.feature-sticky {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  height: 100svh;
-  overflow: hidden;
-  perspective: 1200px;
-}
-.feature-media {
-  position: absolute;
-  inset: 0;
-  transform-origin: 50% 60%;
-  will-change: transform;
-}
-.feature-media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top center;
-}
-.feature-media::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgb(0 0 0 / 0.85), rgb(0 0 0 / 0) 45%);
-}
-.feature-thumb {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: clamp(10rem, 22vw, 20rem);
-  z-index: 2;
-}
-.feature-thumb .tag {
-  display: inline-block;
-  margin: 0.6rem 0 0 var(--pad);
-  background: #000;
-  color: #fff;
-  padding: 0.15rem 0.4rem;
-  text-decoration: none;
-}
-.feature-bar {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 2;
+/* ---- numbers strip ---- */
+.numbers {
   display: grid;
-  grid-template-columns: minmax(0, 4fr) minmax(0, 2fr) minmax(0, 2fr) minmax(0, 2fr);
-  gap: 1.25rem;
-  padding: 1rem var(--pad) 1.4rem;
-  color: #fff;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 1.4fr);
+  gap: 2rem;
+  margin: clamp(4rem, 9vw, 7rem) 0 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
 }
-.feature-bar a {
-  display: inline-block;
-  padding: 0.3rem 0;
-  text-decoration: none;
+.numbers dt {
+  color: var(--muted);
 }
-.feature-bar a:hover {
-  text-decoration: underline;
+.numbers dd {
+  margin: 0.6rem 0 0;
+  font-size: clamp(2.4rem, 4.2vw, 4.2rem);
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+  white-space: nowrap;
 }
-.feature-bar .right {
-  text-align: right;
+.numbers dd em {
+  font-size: 0.55em;
+  letter-spacing: -0.02em;
 }
-.feature-title {
-  font-size: inherit;
-  letter-spacing: 0.01em;
-  line-height: 1.35;
-  font-weight: 400;
-  margin-top: 0.3rem;
-  max-width: 34ch;
-}
-.cyan {
-  color: var(--cyan);
-}
-.feature-bar .cyan {
-  color: #8fe8ff;
-}
-/* phones: no pinning or growing; the project is an image with its details below */
 @media (max-width: 860px) {
-  .feature {
-    height: auto;
-  }
-  .feature-sticky {
-    position: static;
-    height: auto;
-    overflow: visible;
-  }
-  .feature-media {
-    position: relative;
-    aspect-ratio: 1270 / 760;
-  }
-  .feature-media::after {
-    display: none;
-  }
-  .feature-bar {
-    position: static;
+  .numbers {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    color: var(--ink);
-    padding-top: 1.25rem;
+    gap: 1.75rem 1rem;
   }
-  .feature-bar .cyan {
-    color: var(--cyan);
-  }
-  .feature-bar .right {
-    text-align: left;
-  }
-  .feature-bar > :first-child {
-    grid-column: 1 / -1;
-  }
-  .cover {
-    margin-top: 0;
-  }
-}
-
-/* the black panel that slides over the pinned project */
-.cover {
-  position: relative;
-  z-index: 3;
-  margin-top: -100vh;
-  margin-top: -100svh;
-  background: var(--bg);
-}
-.years {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin: 0;
-  padding: 0.5rem var(--pad) 0;
-  font-size: clamp(6rem, 22vw, 21rem);
-  line-height: 0.85;
-  letter-spacing: -0.06em;
 }
 
 /* ---- all work ---- */
@@ -1574,13 +1439,6 @@ html.motion-on .services-list li.is-on strong {
 }
 .contact .monogram em {
   margin-left: 0;
-}
-
-/* phones: the cover panel sits in normal flow (the project above isn't pinned) */
-@media (max-width: 860px) {
-  .cover {
-    margin-top: 0;
-  }
 }
 
 .services-media {

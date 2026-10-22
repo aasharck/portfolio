@@ -9,6 +9,8 @@
 
 **Open these 3 screenshots:** `docs/key-screens/1-hero.jpg` · `docs/key-screens/9-fit-report.jpg` · `docs/key-screens/11-evals.jpg`
 
+> Oct 22: the full-screen SitesGen screenshot and the "20–26 ©" panel were removed at Aashar's request; a numbers strip sits under About instead (`docs/key-screens/3-numbers.jpg`).
+
 ---
 
 # Part 1 notes (Wed Oct 21 2026, morning run)
