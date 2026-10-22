@@ -56,7 +56,11 @@ export function Motion() {
         // Desktop only: on phones the name is the largest paint, so it renders at once.
         for (const el of matchMedia("(min-width: 861px)").matches ? q("[data-chars]") : []) {
           const split = SplitText.create(el, { type: "chars", mask: "chars" });
-          gsap.from(split.chars, { yPercent: 110, duration: 1.2, ease: "expo.out", stagger: 0.035, delay: 0.15 });
+          // If the intro is playing, rise as it lifts away (it lifts at ~1.75 s after load).
+          const introPlaying =
+            !!document.querySelector(".intro") && !document.documentElement.classList.contains("intro-seen");
+          const delay = introPlaying ? Math.max(0.15, 1.95 - performance.now() / 1000) : 0.15;
+          gsap.from(split.chars, { yPercent: 110, duration: 1.2, ease: "expo.out", stagger: 0.035, delay });
         }
 
         for (const el of q("[data-fade-out]")) {

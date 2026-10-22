@@ -5,6 +5,7 @@ import { AskTool } from "@/components/ask-tool";
 import { BgVideo } from "@/components/bg-video";
 import { Clock } from "@/components/clock";
 import { FitTool } from "@/components/fit-tool";
+import { Intro } from "@/components/intro";
 import { Portrait } from "@/components/portrait";
 
 interface Work {
@@ -129,6 +130,7 @@ function WorkLinks({ links }: { links: Work["links"] }) {
 export default function Home() {
   return (
     <>
+      <Intro />
       <div className="above">
         {/* ---- hero ---- */}
         <section className="hero" aria-labelledby="hero-title">

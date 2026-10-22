@@ -1669,3 +1669,108 @@ html.motion-on .services-list li.is-on strong {
     text-decoration: none;
   }
 }
+
+/* ---- first-load intro ---- */
+@property --intro-n {
+  syntax: "<integer>";
+  initial-value: 0;
+  inherits: false;
+}
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding: 1.1rem var(--pad) 1.4rem;
+  background: #000;
+  color: #fff;
+  pointer-events: none;
+  animation: intro-lift 0.95s cubic-bezier(0.76, 0, 0.24, 1) 1.75s forwards;
+}
+.intro-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0;
+  color: #9a9a9a;
+}
+.intro-name {
+  align-self: center;
+  justify-self: center;
+  margin: 0;
+  font-size: clamp(2.2rem, 6vw, 5rem);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  overflow: hidden;
+}
+.intro-name em {
+  margin-left: 0.15em;
+}
+.intro-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+}
+.intro-count {
+  font-size: clamp(5rem, 16vw, 15rem);
+  line-height: 0.8;
+  letter-spacing: -0.06em;
+  font-variant-numeric: tabular-nums;
+  counter-reset: intro-n var(--intro-n);
+  animation: intro-count 1.6s cubic-bezier(0.3, 0.6, 0.2, 1) forwards;
+}
+.intro-count::after {
+  content: counter(intro-n);
+}
+.intro-note {
+  color: #9a9a9a;
+  padding-bottom: 0.4rem;
+}
+.intro-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: var(--red);
+  transform-origin: left;
+  transform: scaleX(0);
+  animation: intro-line 1.6s cubic-bezier(0.3, 0.6, 0.2, 1) forwards;
+}
+@keyframes intro-count {
+  to {
+    --intro-n: 100;
+  }
+}
+@keyframes intro-line {
+  to {
+    transform: scaleX(1);
+  }
+}
+@keyframes intro-lift {
+  to {
+    transform: translateY(-100%);
+    visibility: hidden;
+  }
+}
+/* once per visit (set by the inline script in the layout), and never under reduced motion */
+.intro-seen .intro {
+  display: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .intro {
+    display: none;
+  }
+}
+@media (max-width: 640px) {
+  .intro-top span:nth-child(2) {
+    display: none;
+  }
+}
+@media print {
+  .intro {
+    display: none;
+  }
+}
