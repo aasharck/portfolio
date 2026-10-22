@@ -1,4 +1,17 @@
-# Portfolio v2: part 1 notes (Wed Oct 21 2026, morning run)
+# Portfolio v2: notes
+
+**For Aashar, in 5 lines (Thu Oct 22):**
+1. **Ready to deploy on Saturday**, in mock mode it's complete: all pages, the fit check, chat, evals, break-it, CV + PDF. Nothing is pushed or deployed; $0 spent.
+2. **Look at first:** run it (`npm run build && npm start`) and scroll the home page on a laptop, then paste a real job description into the fit check.
+3. **Not yet proven:** the live models (OpenAI chat, Claude fit check) have never run. `DEPLOY.md` step 5 is a 10-minute smoke test.
+4. **Live eval:** `EVAL_LIVE=1 npm run eval` costs about **25¢** (38 cases) and replaces the mock scores on /evals once you commit `evals/results/live.json`.
+5. **Known misses** (mock mode, shown on /evals): false premises like "Has he worked at Google?" get an off-target but true quote. Zero fabricated sentences across all 38 cases.
+
+**Open these 3 screenshots:** `docs/key-screens/1-hero.jpg` · `docs/key-screens/9-fit-report.jpg` · `docs/key-screens/11-evals.jpg`
+
+---
+
+# Part 1 notes (Wed Oct 21 2026, morning run)
 
 > **Update 3, Oct 21:** art-yakushev.com is now the only reference: ring and letter wall removed; his motion rebuilt with the same libraries (GSAP ScrollTrigger + SplitText + ScrambleText, Lenis smooth scroll): rising name, blur-to-sharp statement, growing pinned project with a cover panel, lighting services list, revealed footer. Phones get a simpler, readable layout. Tests: 42 unit, 28 e2e (incl. a motion on/off test), axe 0 violations. Lighthouse `/`: mobile 96/100/100/100, desktop 100s. Key screens in `docs/key-screens/` follow the scroll order.
 >
@@ -61,12 +74,14 @@ Full set (every page × desktop/phone × light/dark, plus fit and ask flows): ru
 
 Branch `v2`, still not pushed or deployed, $0 spent.
 
-- **Public evals** (`/evals`, `evals/cases.json`, `src/lib/eval.ts`, `npm run eval`): 15 answerable questions, 5 that must be refused, 5 prompt-injection attacks, 3 job descriptions with an expected verdict per requirement. Runs in mock mode before every build; a unit test fails the build if any score drops. Mock scores: retrieval 15/15, answers 15/15, refusals 4/5, attacks stopped 4/5, fit verdicts 15/15, citations verified 20/20. The one known miss is listed on the page: in mock mode "Has he worked at Google?" quotes the SitesGen note about Google Maps (a rule can't tell an employer from a product; the live model is told not to name employers the sources don't). `EVAL_LIVE=1 npm run eval` saves `evals/results/live.json`; commit it and the page shows the live run.
+- **Public evals** (`/evals`, `evals/cases.json`, `src/lib/eval.ts`, `npm run eval`): 38 cases: 18 answerable questions, 7 that must be refused, 8 prompt-injection and made-up-claim traps, and 5 job descriptions (AI engineer, full-stack Next.js, data engineer, frontend, and a poor fit: native iOS) with an accepted verdict per requirement. Runs in mock mode before every build; a unit test fails the build if any score drops. Mock scores: retrieval 18/18, answers 17/18, refusals 5/7, attacks stopped 7/8, fit verdicts 24/26, citations verified 34/34, grounded answers 21/21 (zero fabrication). Committed mock results: `evals/results/mock.json`. The one known miss is listed on the page: in mock mode "Has he worked at Google?" quotes the SitesGen note about Google Maps (a rule can't tell an employer from a product; the live model is told not to name employers the sources don't). `EVAL_LIVE=1 npm run eval` saves `evals/results/live.json`; commit it and the page shows the live run.
 - Fixes the eval found: build/built didn't match; "orchestration" was wrongly an agent synonym (Airflow got partial credit); JD filler ("expert", "how long", "take") counted as skills; the mock quoted fragments like "Dubai, UAE." when no sentence matched; the email question cited the support agent's ticket rules.
 - **Try to break it** (`/break-it`): the chat pipeline framed as a challenge, with attack chips, a per-answer label naming the safeguard that handled it (refusal gate / grounding guard / model declined / budget / answered with sources) and a live scoreboard. Only counters are stored, never the text.
 - **Polish:** Content-Security-Policy (no nonces, which would make every page dynamic; inline scripts allowed for Next's RSC payload, everything else same-origin, `frame-ancestors 'none'`); Open Graph card with name and portrait; generated favicon and Apple icon (scaffold `favicon.ico` removed); footer links to Evals and Break it.
-- **DEPLOY.md:** push, Upstash, keys with provider-side limits, Vercel env vars, smoke test, live eval, kill switches.
-- Tests: 43 unit, 38 e2e (axe clean on 9 pages × desktop/phone × light/dark, break-it flow, CSP and share card). Lighthouse mobile: `/` 98, `/evals` 98, `/break-it` 99 (accessibility, best practices, SEO 100); desktop 100s.
+- **DEPLOY.md:** push, Upstash, keys with provider-side limits, Vercel env vars, smoke test, live eval (≈ 25¢), content updates, kill switches. No `vercel.json` needed.
+- **Also added** (from the part-2 brief in Notion): `/cv`, a print-friendly CV built from the corpus with a generated 4-page A4 PDF (`npm run cv:pdf`; no phone number); a 404 page; `sitemap.xml` and `robots.txt`; CV in the top nav; your new portrait (sent Oct 22) in the (Info) block and the share card; side marks moved into the margin so they never sit on text.
+- Review loops: hiring-manager pass (name, role and availability in the first screen, CV one click away), code pass (guard field, shared eval runner, counters-only scoreboard), two screenshot passes of every page at desktop and phone.
+- Tests: 43 unit, 42 e2e (axe clean on 10 pages × desktop/phone × light/dark; break-it flow, 404, CV/PDF/sitemap, CSP and share card). Lighthouse mobile: `/` 96, `/work/sitesgen` 97, `/cv` 98, `/evals` 98, `/break-it` 99, with accessibility, best practices and SEO at 100; desktop 100s.
 - Not done: streaming answers (answers arrive whole); the live model path still has never run, which is step 5 and 6 of DEPLOY.md on Saturday.
 
 ## Part 2 plan (as written in part 1)

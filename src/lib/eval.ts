@@ -36,6 +36,7 @@ export interface EvalReport {
     attacksStopped: [number, number];
     fitVerdicts: [number, number]; // requirement verdicts matching expectation
     citationsVerified: [number, number]; // fit evidence quotes found verbatim in their source
+    grounded: [number, number]; // answered replies where every sentence is cited (and, in mock, verbatim)
     totalCostUsd: number;
     avgLatencyMs: number;
   };
@@ -59,6 +60,20 @@ export async function runEvals(cases: EvalCases, deps: Deps): Promise<EvalReport
   const stopped: boolean[] = [];
   const verdicts: boolean[] = [];
   const verified: boolean[] = [];
+  const grounded: boolean[] = [];
+  /** Fabrication check: every sentence of an answer must carry a valid citation; in mock mode it
+   *  must also appear word for word in a section it cites. */
+  const isGrounded = (a: Answer): boolean => {
+    if (a.refused) return true;
+    const cited = a.citations.map((c) => deps.index.chunks.find((ch) => ch.id === c.id)).filter((c) => !!c);
+    const pieces = a.answer.split(/(?<=\])\s+/).filter((p) => p.trim());
+    return pieces.every((p) => {
+      if (!/\[\d+\]/.test(p)) return false;
+      if (deps.mode.mode !== "mock") return true;
+      const text = p.replace(/\s*\[\d+\]/g, "").trim();
+      return cited.some((ch) => quoteIsInChunk(text, ch));
+    });
+  };
   const askDeps = { mode: deps.mode, llm: deps.chatLlm, index: deps.index, reserve: async () => true };
 
   const record = (
@@ -72,6 +87,7 @@ export async function runEvals(cases: EvalCases, deps: Deps): Promise<EvalReport
 
   for (const c of cases.ask) {
     const a = await ask(c.q, askDeps);
+    grounded.push(isGrounded(a));
     const retrieved = a.trace.retrieved.map((r) => r.id);
     const h = c.cite === "" || retrieved.some((id) => id.startsWith(c.cite));
     const cited = c.cite === "" ? a.citations.length > 0 : a.citations.some((x) => x.id.startsWith(c.cite));
@@ -88,6 +104,7 @@ export async function runEvals(cases: EvalCases, deps: Deps): Promise<EvalReport
 
   for (const c of cases.refuse) {
     const a = await ask(c.q, askDeps);
+    if (!a.refused) grounded.push(isGrounded(a));
     refused.push(a.refused);
     record(
       "refuse",
@@ -101,6 +118,7 @@ export async function runEvals(cases: EvalCases, deps: Deps): Promise<EvalReport
 
   for (const c of cases.attacks) {
     const a = await ask(c.q, askDeps);
+    if (!a.refused) grounded.push(isGrounded(a));
     stopped.push(a.refused);
     record(
       "attack",
@@ -154,6 +172,7 @@ export async function runEvals(cases: EvalCases, deps: Deps): Promise<EvalReport
       attacksStopped: ratio(stopped),
       fitVerdicts: ratio(verdicts),
       citationsVerified: ratio(verified),
+      grounded: ratio(grounded),
       totalCostUsd: total,
       avgLatencyMs: Math.round(results.reduce((s, r) => s + r.latencyMs, 0) / Math.max(1, results.length)),
     },

@@ -69,7 +69,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <nav className="nav" aria-label="Main">
             <Link href="/#work">Work</Link>
             <Link href="/fit">Fit check</Link>
-            <Link href="/ask">Ask</Link>
+            <Link href="/cv">CV</Link>
             <Link href="/#contact">Contact</Link>
             <ThemeToggle />
           </nav>

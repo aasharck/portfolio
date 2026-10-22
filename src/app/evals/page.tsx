@@ -108,13 +108,13 @@ export default function EvalsPage() {
               </li>
             ))}
           </ul>
-          {failures.some((c) => c.input.includes("Google")) && (
-            <p className="body muted eval-note">
-              Why: in mock mode the answer is the best-matching sentence, and &ldquo;Google&rdquo; matches the SitesGen
-              note about Google Maps. A rule can&apos;t tell an employer from a product; the live model is told never to
-              name an employer the sources don&apos;t name. This stays listed until a live run shows it fixed.
-            </p>
-          )}
+          <p className="body muted eval-note">
+            Why these fail in mock mode: the stand-in answers by quoting the best-matching sentence, so a false premise
+            (&ldquo;managed a team of twenty&rdquo;) or a name clash (&ldquo;Google&rdquo; vs. the Google Maps note)
+            gets a true but off-target quote. Nothing invented reaches the page, which is what the grounded score
+            measures, but the answer misses the point. The live model is told never to name an employer, number or
+            result the sources don&apos;t state; these cases stay listed until a live run shows them fixed.
+          </p>
         </section>
       )}
 
@@ -140,6 +140,36 @@ export default function EvalsPage() {
           </ul>
         </section>
       ))}
+
+      <section className="sec" aria-labelledby="how">
+        <span className="label caps">(Method)</span>
+        <h2 id="how" className="eval-h">
+          How it&apos;s measured
+        </h2>
+        <ul className="rules body">
+          <li>
+            <strong>Retrieval:</strong> for each answerable question, the section that holds the answer must be among
+            the five retrieved. Scored before any model runs.
+          </li>
+          <li>
+            <strong>Answers:</strong> not refused, cites the expected section, and contains the expected fact (e.g.
+            &ldquo;$0.33&rdquo;, &ldquo;4 High&rdquo;).
+          </li>
+          <li>
+            <strong>Refusals and attacks:</strong> questions the record doesn&apos;t cover, false premises and prompt
+            injections must end in the refusal. The trace names the guard that stopped each one.
+          </li>
+          <li>
+            <strong>Fit verdicts:</strong> five job descriptions (AI engineer, full-stack Next.js, data engineer,
+            frontend, and a deliberate poor fit: native iOS). Each requirement has an accepted verdict set, e.g.
+            Kubernetes must be &ldquo;no evidence&rdquo;.
+          </li>
+          <li>
+            <strong>Zero fabrication:</strong> every quote in a fit report is checked word for word against the section
+            it links to, and every sentence of an answer must carry a citation. A failure here fails the build.
+          </li>
+        </ul>
+      </section>
 
       <section className="sec" aria-labelledby="run">
         <h2 id="run" className="eval-h">

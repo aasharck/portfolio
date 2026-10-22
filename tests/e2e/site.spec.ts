@@ -150,3 +150,18 @@ test("security headers and share image", async ({ request }) => {
   expect(og.ok()).toBe(true);
   expect(og.headers()["content-type"]).toContain("image/png");
 });
+
+test("unknown pages get the 404 page", async ({ page }) => {
+  const res = await page.goto("/no-such-page");
+  expect(res?.status()).toBe(404);
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Not in the record");
+});
+
+test("CV page offers a PDF without the phone number, and sitemap lists it", async ({ page, request }) => {
+  await page.goto("/cv");
+  await expect(page.getByRole("link", { name: "Download PDF" })).toHaveAttribute("href", "/aashar-ck-cv.pdf");
+  await expect(page.locator("main")).not.toContainText("334");
+  const pdf = await request.get("/aashar-ck-cv.pdf");
+  expect(pdf.headers()["content-type"]).toContain("pdf");
+  expect(await (await request.get("/sitemap.xml")).text()).toContain("/cv");
+});

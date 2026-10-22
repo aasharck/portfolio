@@ -165,8 +165,8 @@ export default function Home() {
               <Image
                 src="/work/aashar-red.jpg"
                 alt="Portrait of Aashar CK"
-                width={1254}
-                height={940}
+                width={940}
+                height={705}
                 sizes="(max-width: 860px) 100vw, 40vw"
               />
               <figcaption className="caps mono">DXB_UAE</figcaption>

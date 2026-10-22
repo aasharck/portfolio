@@ -1,7 +1,7 @@
 # Deploying the portfolio (Saturday Oct 24)
 
 About 45 minutes. Nothing here has been done yet: the branch `v2` has never been pushed or deployed.
-Costs: Vercel Hobby and Upstash free tiers are $0. Model spend is capped at **$0.50 a day** by the site itself (≈ $15/month worst case), and you should also set a limit in each provider's console (step 3).
+Costs: Vercel Hobby and Upstash free tiers are $0. (The brief allowed Upstash or Supabase for the budget store; only Upstash is implemented.) Model spend is capped at **$0.50 a day** by the site itself (≈ $15/month worst case), and you should also set a limit in each provider's console (step 3).
 
 ## 0. Before you start
 
@@ -63,7 +63,7 @@ Leave the rest unset; defaults are in `.env.example` (models, rate limits, max J
 
 If anything says **Mock** in production, a key or the Upstash pair is missing: the trace's mode line names which.
 
-## 6. Live eval (once, about 15¢)
+## 6. Live eval (once, about 25¢)
 
 Locally, with the two keys in your shell:
 
@@ -71,7 +71,11 @@ Locally, with the two keys in your shell:
 EVAL_LIVE=1 ANTHROPIC_API_KEY=… OPENAI_API_KEY=… npm run eval
 ```
 
-It writes `evals/results/live.json`. Read the failures it prints, then commit that file and push: `/evals` shows the live scores from then on (builds keep running the free mock eval as a regression check).
+38 cases: 33 chat answers on `gpt-6-luna` (≈ 2¢ in total) and 5 fit reports on Haiku + Sonnet (≈ 4–5¢ each). It writes `evals/results/live.json`. Read the failures it prints, then commit that file and push: `/evals` shows the live scores from then on (builds keep running the free mock eval as a regression check).
+
+## When the content changes
+
+Edit `content/*.md`, then regenerate the CV PDF (it's a static file): `npm run build && npx next start -p 3100`, and in another terminal `npm run cv:pdf`. Commit `public/aashar-ck-cv.pdf`. `npm run eval:save` refreshes the committed mock eval results.
 
 ## Kill switches
 

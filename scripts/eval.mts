@@ -1,3 +1,4 @@
+// npm run eval:save       → same, and commits-ready copy at evals/results/mock.json
 // npm run eval            → mock mode ($0). Writes src/generated/evals.json for the /evals page,
 //                            together with the last committed live run, if there is one.
 // EVAL_LIVE=1 npm run eval → real models (a few cents). Also saves evals/results/live.json:
@@ -30,6 +31,10 @@ const report = await runEvals(cases, {
 report.models = live ? { chat: MODELS.chat, report: MODELS.report } : null;
 
 const livePath = join(root, "evals/results/live.json");
+if (!live && process.argv.includes("--save")) {
+  mkdirSync(join(root, "evals/results"), { recursive: true });
+  writeFileSync(join(root, "evals/results/mock.json"), JSON.stringify(report, null, 1));
+}
 if (live) {
   mkdirSync(join(root, "evals/results"), { recursive: true });
   writeFileSync(livePath, JSON.stringify(report, null, 1));
@@ -42,7 +47,7 @@ writeFileSync(join(root, "src/generated/evals.json"), JSON.stringify({ mock, liv
 const m = report.metrics;
 const f = ([a, b]: [number, number]) => `${a}/${b}`;
 console.log(
-  `eval (${report.mode}): retrieval ${f(m.retrievalHit)} · answers ${f(m.answered)} · refusals ${f(m.refused)} · attacks stopped ${f(m.attacksStopped)} · fit verdicts ${f(m.fitVerdicts)} · citations verified ${f(m.citationsVerified)} · $${m.totalCostUsd.toFixed(4)}`,
+  `eval (${report.mode}): retrieval ${f(m.retrievalHit)} · answers ${f(m.answered)} · refusals ${f(m.refused)} · attacks stopped ${f(m.attacksStopped)} · fit verdicts ${f(m.fitVerdicts)} · citations verified ${f(m.citationsVerified)} · grounded ${f(m.grounded)} · $${m.totalCostUsd.toFixed(4)}`,
 );
 for (const c of report.cases.filter((c) => !c.pass))
   console.log(`  FAIL ${c.id} ${c.input.slice(0, 60)} → ${c.detail}`);
