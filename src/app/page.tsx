@@ -179,62 +179,29 @@ export default function Home() {
               </p>
             </div>
           </div>
-          <div className="numeral">
-            <span className="caps mono numeral-tag">(YEARS_FULL-STACK)</span>
-            <strong data-rise aria-label="5+ years">
-              5+
-            </strong>
-          </div>
+          <dl className="numbers" aria-label="In numbers">
+            <div>
+              <dt className="caps">Years full-stack</dt>
+              <dd>5+</dd>
+            </div>
+            <div>
+              <dt className="caps">AI agents in production</dt>
+              <dd>8</dd>
+            </div>
+            <div>
+              <dt className="caps">AI cost per SitesGen site</dt>
+              <dd>≈ $0.33</dd>
+            </div>
+            <div>
+              <dt className="caps">Audit findings</dt>
+              <dd>
+                4 <em>High</em> · 2 <em>Med</em>
+              </dd>
+            </div>
+          </dl>
         </section>
 
-        {/* ---- featured project: grows to full screen, then a panel covers it ---- */}
-        <section className="feature" data-grow-wrap aria-labelledby="feature-title">
-          <div className="feature-sticky">
-            <div className="feature-media" data-grow>
-              <Image
-                src="/work/sitesgen-hero.jpg"
-                alt="SitesGen: a neighbourhood scan ranking local businesses by how badly they need a new website"
-                width={1270}
-                height={760}
-                sizes="100vw"
-              />
-            </div>
-            <div className="feature-bar caps">
-              <div>
-                <span data-scramble>© SitesGen</span>
-                <h2 id="feature-title" className="feature-title">
-                  An app that finds local businesses with weak websites, builds each a new one and writes the pitch.
-                </h2>
-              </div>
-              <div className="cyan">
-                <span data-scramble>Multi-agent AI</span>
-                <br />
-                <span data-scramble>Next.js · Supabase</span>
-                <br />
-                <span data-scramble>Claude</span>
-              </div>
-              <div>
-                <Link href="/work/sitesgen">→ Case study</Link>
-                <br />
-                <a href="https://www.sitesgen.com" rel="noopener">
-                  → Visit site
-                </a>
-              </div>
-              <div className="right">
-                <span data-scramble>≈ $0.33 AI cost per site</span>
-                <br />
-                <span data-scramble>Built solo in ~1 month</span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <div className="cover">
-          <p className="years" aria-label="Building since 2020">
-            <span>20–26</span>
-            <span>©</span>
-          </p>
-
+        <div className="rest">
           {/* ---- all work ---- */}
           <section className="all" id="work" aria-labelledby="work-title">
             <div className="all-head">

@@ -13,7 +13,6 @@ import { useEffect, useState } from "react";
  *   data-blur      words sharpen from a blur as the block scrolls through
  *   data-rise      element drifts up into place as it enters (giant numerals)
  *   data-scramble  text decodes from random letters when it enters, and on hover
- *   data-grow      featured media grows from a small tilted card to full screen
  *   data-fade-out  hero background blurs and fades as you leave the hero
  *   data-step      list items light up as they pass the middle of the screen
  */
@@ -95,27 +94,6 @@ export function Motion() {
             ease: "none",
             scrollTrigger: { trigger: el, start: "top bottom", end: "bottom 75%", scrub: true },
           });
-        }
-
-        // The grow-and-pin effect is desktop only; phones get a plain image (see CSS).
-        for (const el of matchMedia("(min-width: 861px)").matches ? q("[data-grow]") : []) {
-          gsap.fromTo(
-            el,
-            { scale: 0.42, rotateX: 24, rotateZ: -4, yPercent: 8 },
-            {
-              scale: 1,
-              rotateX: 0,
-              rotateZ: 0,
-              yPercent: 0,
-              ease: "none",
-              scrollTrigger: {
-                trigger: el.closest("[data-grow-wrap]") ?? el,
-                start: "top 85%",
-                end: "top top",
-                scrub: true,
-              },
-            },
-          );
         }
 
         for (const el of q("[data-scramble]")) {
