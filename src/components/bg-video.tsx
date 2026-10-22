@@ -22,15 +22,6 @@ export function BgVideo({ src, poster, className }: { src: string; poster: strin
   }, [src, poster]);
 
   return (
-    <video
-      ref={ref}
-      className={className}
-      muted
-      loop
-      playsInline
-      preload="none"
-      aria-hidden="true"
-      tabIndex={-1}
-    />
+    <video ref={ref} className={className} muted loop playsInline preload="none" aria-hidden="true" tabIndex={-1} />
   );
 }

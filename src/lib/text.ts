@@ -14,7 +14,8 @@ const STOPWORDS = new Set(
     "including include includes like using use used work works worked working within across knowledge " +
     "understanding familiarity familiar experience experienced years year hands hands-on must required " +
     "requirement requirements preferred bonus nice responsibilities responsible skills skill " +
-    "know knows much many has have had did any ever powered driven based"
+    "know knows much many has have had did any ever powered driven based " +
+    "expert expertise proficient proficiency advanced deep long take took takes"
   ).split(/\s+/),
 );
 
@@ -22,7 +23,8 @@ const STOPWORDS = new Set(
 // the rest of its group at reduced weight (see EXPANSION_WEIGHT in retrieval.ts).
 export const ALIAS_GROUPS: string[][] = [
   ["llm", "ai", "ml", "claude", "anthropic", "openai", "gpt", "chatgpt", "genai", "generative", "gemini"],
-  ["agent", "agentic", "multiagent", "orchestration"],
+  ["agent", "agentic", "multiagent"],
+  ["build", "built", "ship", "shipped", "launch", "launched"],
   ["rag", "retrieval", "citation", "cite", "pgvector", "embedding", "vector", "grounding"],
   ["react", "nextjs", "frontend", "front-end", "ui"],
   ["nodejs", "node", "backend", "back-end", "express", "api"],

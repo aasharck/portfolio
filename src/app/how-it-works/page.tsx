@@ -74,6 +74,10 @@ export default function HowItWorks() {
           <h2 id="s-src">Read the corpus yourself</h2>
           <p className="prose">
             <Link href="/notes">All {corpus.docs.length} documents and their sources →</Link>
+            <br />
+            <Link href="/evals">The public eval: every case and every failure →</Link>
+            <br />
+            <Link href="/break-it">Try to break it →</Link>
           </p>
         </div>
       </section>

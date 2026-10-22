@@ -1599,3 +1599,104 @@ html.motion-on .services-list li.is-on strong {
     display: none;
   }
 }
+
+/* ---- evals ---- */
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 3rem 2rem;
+}
+.metric strong {
+  display: block;
+  font-weight: 400;
+  font-size: clamp(4rem, 9vw, 8rem);
+  line-height: 0.85;
+  letter-spacing: -0.06em;
+}
+.metric strong em {
+  font-size: 0.45em;
+  color: var(--muted);
+}
+.metric .caps {
+  display: block;
+  margin-top: 0.75rem;
+}
+.metric p {
+  margin: 0.35rem 0 0;
+  max-width: 22rem;
+}
+.eval-note {
+  margin-top: 3rem;
+  max-width: 44rem;
+}
+.eval-group {
+  padding-top: 0;
+}
+.sec h2.eval-h {
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  margin-bottom: 1.25rem;
+}
+.eval-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--rule);
+}
+.eval-list li {
+  display: grid;
+  grid-template-columns: 9rem minmax(0, 1fr);
+  gap: 1rem;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+.eval-list .req-text {
+  margin: 0 0 0.2rem;
+}
+@media (max-width: 760px) {
+  .metrics {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  .eval-list li {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.2rem;
+  }
+}
+
+/* ---- break it ---- */
+.scoreboard {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 0 0 2.5rem;
+  padding: 1.25rem 0;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.scoreboard dt {
+  color: var(--muted);
+}
+.scoreboard dd {
+  margin: 0.2rem 0 0;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+.rules {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+.rules li {
+  margin-bottom: 0.9rem;
+}
+.rules strong {
+  font-weight: 500;
+}
+.break-note {
+  margin-top: 3rem;
+  max-width: 40rem;
+}
+@media (max-width: 760px) {
+  .scoreboard {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}

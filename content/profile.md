@@ -19,7 +19,7 @@ His AI work is production work, not experiments: SitesGen runs a pipeline of eig
 
 ## Contact
 
-- Email: aasharck@gmail.com
+- Email address: aasharck@gmail.com
 - GitHub: github.com/aasharck
 - Location: Dubai, UAE
 - Availability: available immediately, for full-stack and AI-engineering roles.

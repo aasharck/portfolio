@@ -57,7 +57,19 @@ Full set (every page × desktop/phone × light/dark, plus fit and ask flows): ru
 2. ~~"Available immediately"~~ added Oct 21 at Aashar's request.
 3. `legacy-2023/` holds the old site (moved, not deleted). `git rm -r legacy-2023` when you're happy.
 
-## Part 2 (tonight 21:00) should do
+## Part 2: done (Thu Oct 22)
+
+Branch `v2`, still not pushed or deployed, $0 spent.
+
+- **Public evals** (`/evals`, `evals/cases.json`, `src/lib/eval.ts`, `npm run eval`): 15 answerable questions, 5 that must be refused, 5 prompt-injection attacks, 3 job descriptions with an expected verdict per requirement. Runs in mock mode before every build; a unit test fails the build if any score drops. Mock scores: retrieval 15/15, answers 15/15, refusals 4/5, attacks stopped 4/5, fit verdicts 15/15, citations verified 20/20. The one known miss is listed on the page: in mock mode "Has he worked at Google?" quotes the SitesGen note about Google Maps (a rule can't tell an employer from a product; the live model is told not to name employers the sources don't). `EVAL_LIVE=1 npm run eval` saves `evals/results/live.json`; commit it and the page shows the live run.
+- Fixes the eval found: build/built didn't match; "orchestration" was wrongly an agent synonym (Airflow got partial credit); JD filler ("expert", "how long", "take") counted as skills; the mock quoted fragments like "Dubai, UAE." when no sentence matched; the email question cited the support agent's ticket rules.
+- **Try to break it** (`/break-it`): the chat pipeline framed as a challenge, with attack chips, a per-answer label naming the safeguard that handled it (refusal gate / grounding guard / model declined / budget / answered with sources) and a live scoreboard. Only counters are stored, never the text.
+- **Polish:** Content-Security-Policy (no nonces, which would make every page dynamic; inline scripts allowed for Next's RSC payload, everything else same-origin, `frame-ancestors 'none'`); Open Graph card with name and portrait; generated favicon and Apple icon (scaffold `favicon.ico` removed); footer links to Evals and Break it.
+- **DEPLOY.md:** push, Upstash, keys with provider-side limits, Vercel env vars, smoke test, live eval, kill switches.
+- Tests: 43 unit, 38 e2e (axe clean on 9 pages × desktop/phone × light/dark, break-it flow, CSP and share card). Lighthouse mobile: `/` 98, `/evals` 98, `/break-it` 99 (accessibility, best practices, SEO 100); desktop 100s.
+- Not done: streaming answers (answers arrive whole); the live model path still has never run, which is step 5 and 6 of DEPLOY.md on Saturday.
+
+## Part 2 plan (as written in part 1)
 
 1. **Public evals page** (`/evals`): a fixed set of ~20 questions + 3 JDs with expected outcomes (answer must cite X / must refuse / requirement must be "none"), run in mock mode in CI and once live; show retrieval hit-rate, refusal accuracy, citation-verification drop rate, cost per run. The unit tests already contain most of the cases to seed it.
 2. **"Try to break it" challenge**: a page inviting prompt-injection and "make it claim something false" attempts, logging (hashed) attempts and showing the guardrail that stopped each (refusal gate, citation drop, grounding guard). Keep it on the same budget.

@@ -76,9 +76,13 @@ export function bestSentence(chunk: Chunk, query: string): string {
   const terms = new Set(queryTerms(query));
   const expanded = new Set<string>();
   for (const t of terms) for (const a of aliasesOf(t)) expanded.add(a);
-  let best = "";
-  let bestScore = -1;
-  for (const s of splitSentences(chunk.text)) {
+  // List items ("- Email address: …") are complete facts; quote them without the dash.
+  const sentences = splitSentences(chunk.text).map((s) => s.replace(/^- /, ""));
+  // Fragments ("Dubai, UAE.") say nothing on their own; the lead sentence is the fallback.
+  const substantial = sentences.filter((s) => s.length >= 40 || s.includes(":"));
+  let best = substantial[0] ?? sentences[0] ?? "";
+  let bestScore = 0;
+  for (const s of substantial) {
     const toks = new Set(tokenize(s));
     let sc = 0;
     for (const t of toks) {

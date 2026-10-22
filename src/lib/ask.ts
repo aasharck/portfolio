@@ -20,11 +20,15 @@ export interface Citation {
   url: string;
 }
 
+/** Which safeguard stopped an answer, or null when it was answered with citations. */
+export type Guard = "refusal_gate" | "budget" | "model_declined" | "grounding_guard" | null;
+
 export interface Answer {
   question: string;
   answer: string;
   citations: Citation[];
   refused: boolean;
+  guard: Guard;
   trace: Trace;
 }
 
@@ -91,15 +95,16 @@ export async function ask(question: string, deps: AskDeps): Promise<Answer> {
   );
   tr.hits(hits, question);
 
-  const refuse = (why: string): Answer => {
-    tr.note("check", "refusal_gate", why);
-    return { question, answer: REFUSAL, citations: [], refused: true, trace: tr.done() };
+  const refuse = (why: string, guard: Exclude<Guard, null>): Answer => {
+    tr.note("check", guard, why);
+    return { question, answer: REFUSAL, citations: [], refused: true, guard, trace: tr.done() };
   };
 
   const top = hits[0];
   if (!top || top.coverage < ANSWER_MIN_COVERAGE) {
     return refuse(
       `best coverage ${top ? top.coverage.toFixed(2) : "0"} < ${ANSWER_MIN_COVERAGE}: no source covers the question, model not called`,
+      "refusal_gate",
     );
   }
   tr.note("check", "refusal_gate", `best coverage ${top.coverage.toFixed(2)} ≥ ${ANSWER_MIN_COVERAGE}: answerable`);
@@ -116,7 +121,7 @@ export async function ask(question: string, deps: AskDeps): Promise<Answer> {
     const user = `Sources:\n\n${sourcesBlock(hits)}\n\nQuestion: ${question}`;
     const maxTokens = 600;
     if (deps.reserve && !(await deps.reserve(worstCaseUsd(MODELS.chat, SYSTEM.length + user.length, maxTokens)))) {
-      return refuse("daily budget reached: model not called");
+      return refuse("daily budget reached: model not called", "budget");
     }
     const llm = deps.llm;
     const res = await tr.step(
@@ -129,12 +134,15 @@ export async function ask(question: string, deps: AskDeps): Promise<Answer> {
     raw = res.output;
   }
 
-  if (raw.trim() === REFUSAL || !raw.trim()) return refuse("model said the sources don't answer it");
+  if (raw.trim() === REFUSAL || !raw.trim()) return refuse("model said the sources don't answer it", "model_declined");
 
   const { text, used, dropped } = checkMarkers(raw, hits.length);
   if (!used.length) {
     // Grounding guard: a factual answer with no valid citation is not shown.
-    return refuse(`grounding guard: answer had no valid [n] citation${dropped ? ` (${dropped} invalid dropped)` : ""}`);
+    return refuse(
+      `answer had no valid [n] citation${dropped ? ` (${dropped} invalid dropped)` : ""}`,
+      "grounding_guard",
+    );
   }
   tr.note("check", "citation_check", `${used.length} source(s) cited, ${dropped} invalid marker(s) dropped`);
 
@@ -142,5 +150,5 @@ export async function ask(question: string, deps: AskDeps): Promise<Answer> {
     const c = hits[n - 1].chunk;
     return { n, id: c.id, label: `${c.docTitle} › ${c.heading}`, url: c.url };
   });
-  return { question, answer: text, citations, refused: false, trace: tr.done() };
+  return { question, answer: text, citations, refused: false, guard: null, trace: tr.done() };
 }

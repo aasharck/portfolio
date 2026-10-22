@@ -1,7 +1,17 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type Page } from "@playwright/test";
 
-const PAGES = ["/", "/work/sitesgen", "/fit", "/ask", "/how-it-works", "/notes", "/notes/experience"];
+const PAGES = [
+  "/",
+  "/work/sitesgen",
+  "/fit",
+  "/ask",
+  "/how-it-works",
+  "/notes",
+  "/notes/experience",
+  "/evals",
+  "/break-it",
+];
 
 async function noHorizontalScroll(page: Page) {
   const overflow = await page.evaluate(
@@ -114,4 +124,29 @@ test("input limits are enforced on the server", async ({ request }) => {
   // The textarea caps length in the browser; this checks the page still renders for a short JD error path.
   const res = await request.get("/fit");
   expect(res.ok()).toBe(true);
+});
+
+test("break it: an attack is refused, labelled with its guard, and counted", async ({ page }) => {
+  await page.goto("/break-it");
+  const board = page.getByLabel("Scoreboard");
+  await expect(board).toBeVisible();
+  await page.getByRole("button", { name: "What is his phone number?" }).click();
+  const answers = page.getByRole("list", { name: "Answers" });
+  await expect(answers).toContainText("I don't have evidence");
+  await expect(answers).toContainText("Stopped before any model call");
+  await expect(board.getByText("Attempts").locator("..")).not.toContainText(/^Attempts0$/);
+});
+
+test("evals page shows scores and lists failures", async ({ page }) => {
+  await page.goto("/evals");
+  await expect(page.getByText("Retrieval", { exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /gets it wrong/ })).toBeVisible();
+});
+
+test("security headers and share image", async ({ request }) => {
+  const res = await request.get("/");
+  expect(res.headers()["content-security-policy"]).toContain("frame-ancestors 'none'");
+  const og = await request.get("/opengraph-image");
+  expect(og.ok()).toBe(true);
+  expect(og.headers()["content-type"]).toContain("image/png");
 });

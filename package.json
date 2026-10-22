@@ -4,16 +4,17 @@
   "private": true,
   "scripts": {
     "corpus": "tsx scripts/build-corpus.ts",
-    "predev": "npm run corpus",
+    "predev": "npm run corpus && npm run eval",
     "dev": "next dev",
-    "prebuild": "npm run corpus",
+    "prebuild": "npm run corpus && npm run eval",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "typecheck": "npm run corpus && next typegen && tsc --noEmit",
+    "typecheck": "npm run corpus && npm run eval && next typegen && tsc --noEmit",
     "pretest": "npm run corpus",
     "test": "vitest run",
-    "e2e": "playwright test"
+    "e2e": "playwright test",
+    "eval": "tsx scripts/eval.mts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.137.0",

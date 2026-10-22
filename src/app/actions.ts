@@ -2,6 +2,7 @@
 
 import { headers } from "next/headers";
 import { ask, type Answer } from "@/lib/ask";
+import { readScore, recordAttempt, type BreakScore } from "@/lib/break";
 import { assessFit, type FitReport } from "@/lib/fit";
 import { LIMITS, getStore } from "@/lib/guard";
 import { anthropicLlm, currentMode, openaiLlm } from "@/lib/llm";
@@ -64,4 +65,20 @@ export async function askAction(prev: AskState, form: FormData): Promise<AskStat
   });
   // Keep the last 6 turns so the round-tripped state stays small.
   return res.ok ? { turns: [...turns, res.value].slice(-6) } : { turns, error: res.message };
+}
+
+export interface BreakState {
+  turns: Answer[];
+  error?: string;
+  score?: BreakScore;
+}
+
+/** Same pipeline and limits as the chat; each attempt is counted by the safeguard that handled it. */
+export async function breakAction(prev: BreakState, form: FormData): Promise<BreakState> {
+  const res = await askAction({ turns: prev?.turns ?? [] }, form);
+  if (res.error) return { ...res, score: prev?.score };
+  const last = res.turns.at(-1);
+  const store = getStore();
+  if (last) await recordAttempt(store, last.guard);
+  return { turns: res.turns, score: await readScore(store) };
 }

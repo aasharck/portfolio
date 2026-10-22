@@ -85,8 +85,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <footer className="footer">
           <span>© 2026 Aashar CK · Dubai, UAE</span>
           <span>
-            <Link href="/how-it-works">How this site works</Link> ·{" "}
-            <Link href="/notes">Every fact, with its source</Link>
+            <Link href="/how-it-works">How this site works</Link> · <Link href="/evals">Evals</Link> ·{" "}
+            <Link href="/break-it">Break it</Link> · <Link href="/notes">Every fact, with its source</Link>
           </span>
         </footer>
       </body>
