@@ -5,6 +5,7 @@ import { AskTool } from "@/components/ask-tool";
 import { BgVideo } from "@/components/bg-video";
 import { Clock } from "@/components/clock";
 import { FitTool } from "@/components/fit-tool";
+import { Portrait } from "@/components/portrait";
 
 interface Work {
   id: string;
@@ -162,13 +163,7 @@ export default function Home() {
           </h2>
           <div className="about-grid">
             <figure className="about-mark">
-              <Image
-                src="/work/aashar-portrait.jpg"
-                alt="Portrait of Aashar CK"
-                width={940}
-                height={705}
-                sizes="(max-width: 860px) 100vw, 40vw"
-              />
+              <Portrait />
               <figcaption className="caps mono">DXB_UAE</figcaption>
             </figure>
             <span className="caps about-label">(Info)</span>
