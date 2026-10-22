@@ -79,7 +79,6 @@ const SERVICES = [
   ["Full-stack", "React, Next.js, TypeScript, Node.js, Python (FastAPI)"],
   ["Data", "Postgres, Supabase with RLS, AWS Glue and Athena, ETL"],
   ["Cloud", "AWS Lambda, API Gateway, AppSync, DynamoDB, Vercel"],
-  ["Security", "Smart-contract audits, application security reviews"],
 ];
 
 const JOBS = [
@@ -191,12 +190,6 @@ export default function Home() {
             <div>
               <dt className="caps">AI SaaS products live</dt>
               <dd>2</dd>
-            </div>
-            <div>
-              <dt className="caps">To launch SitesGen, solo</dt>
-              <dd>
-                ≈ 1 <em>month</em>
-              </dd>
             </div>
           </dl>
         </section>
@@ -331,33 +324,6 @@ export default function Home() {
                 </li>
               ))}
             </ul>
-          </section>
-
-          {/* ---- security ---- */}
-          <section className="sec" id="security" aria-labelledby="sec-title">
-            <div className="sec-title">
-              <div>
-                <span className="label caps">(Security)</span>
-                <h2 id="sec-title">
-                  I read code <em>like an attacker.</em>
-                </h2>
-              </div>
-              <p className="body">
-                Findings from competitive smart-contract audits on Code4rena and Sherlock. On SitesGen I found that
-                users could write past their plan limits through the database API, closed it, and proved the fix with a
-                real user token. <Link href="/notes/security">More on my security work</Link>
-              </p>
-            </div>
-            <div className="findings" aria-label="Audit findings: 4 High, 2 Medium">
-              <div>
-                <strong data-rise>4</strong>
-                <em>High</em>
-              </div>
-              <div>
-                <strong data-rise>2</strong>
-                <em>Medium</em>
-              </div>
-            </div>
           </section>
         </div>
       </div>
