@@ -163,7 +163,7 @@ export default function Home() {
           <div className="about-grid">
             <figure className="about-mark">
               <Image
-                src="/work/aashar-red.jpg"
+                src="/work/aashar-portrait.jpg"
                 alt="Portrait of Aashar CK"
                 width={940}
                 height={705}
