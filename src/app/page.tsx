@@ -5,6 +5,7 @@ import { AskTool } from "@/components/ask-tool";
 import { BgVideo } from "@/components/bg-video";
 import { Clock } from "@/components/clock";
 import { FitTool } from "@/components/fit-tool";
+import { Intro } from "@/components/intro";
 import { Portrait } from "@/components/portrait";
 
 interface Work {
@@ -79,7 +80,6 @@ const SERVICES = [
   ["Full-stack", "React, Next.js, TypeScript, Node.js, Python (FastAPI)"],
   ["Data", "Postgres, Supabase with RLS, AWS Glue and Athena, ETL"],
   ["Cloud", "AWS Lambda, API Gateway, AppSync, DynamoDB, Vercel"],
-  ["Security", "Smart-contract audits, application security reviews"],
 ];
 
 const JOBS = [
@@ -130,6 +130,7 @@ function WorkLinks({ links }: { links: Work["links"] }) {
 export default function Home() {
   return (
     <>
+      <Intro />
       <div className="above">
         {/* ---- hero ---- */}
         <section className="hero" aria-labelledby="hero-title">
@@ -189,14 +190,8 @@ export default function Home() {
               <dd>8</dd>
             </div>
             <div>
-              <dt className="caps">AI cost per SitesGen site</dt>
-              <dd>≈ $0.33</dd>
-            </div>
-            <div>
-              <dt className="caps">Audit findings</dt>
-              <dd>
-                4 <em>High</em> · 2 <em>Med</em>
-              </dd>
+              <dt className="caps">AI SaaS products live</dt>
+              <dd>2</dd>
             </div>
           </dl>
         </section>
@@ -331,33 +326,6 @@ export default function Home() {
                 </li>
               ))}
             </ul>
-          </section>
-
-          {/* ---- security ---- */}
-          <section className="sec" id="security" aria-labelledby="sec-title">
-            <div className="sec-title">
-              <div>
-                <span className="label caps">(Security)</span>
-                <h2 id="sec-title">
-                  I read code <em>like an attacker.</em>
-                </h2>
-              </div>
-              <p className="body">
-                Findings from competitive smart-contract audits on Code4rena and Sherlock. On SitesGen I found that
-                users could write past their plan limits through the database API, closed it, and proved the fix with a
-                real user token. <Link href="/notes/security">More on my security work</Link>
-              </p>
-            </div>
-            <div className="findings" aria-label="Audit findings: 4 High, 2 Medium">
-              <div>
-                <strong data-rise>4</strong>
-                <em>High</em>
-              </div>
-              <div>
-                <strong data-rise>2</strong>
-                <em>Medium</em>
-              </div>
-            </div>
           </section>
         </div>
       </div>

@@ -165,3 +165,16 @@ test("CV page offers a PDF without the phone number, and sitemap lists it", asyn
   expect(pdf.headers()["content-type"]).toContain("pdf");
   expect(await (await request.get("/sitemap.xml")).text()).toContain("/cv");
 });
+
+test("intro plays on the first load only, and never under reduced motion", async ({ page }) => {
+  await page.goto("/");
+  const intro = page.locator(".intro");
+  await expect(intro).toBeVisible();
+  await expect(intro).toBeHidden({ timeout: 5000 }); // lifts away by itself, no JS needed
+  await page.reload();
+  await expect(intro).toBeHidden();
+  const fresh = await page.context().browser()!.newPage({ reducedMotion: "reduce" });
+  await fresh.goto(page.url());
+  await expect(fresh.locator(".intro")).toBeHidden();
+  await fresh.close();
+});

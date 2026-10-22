@@ -50,7 +50,8 @@ export const viewport: Viewport = {
 };
 
 // Dark is the default whatever the OS says; a saved choice is applied before first paint.
-const themeScript = `try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}`;
+// Also marks whether this visit has already seen the intro, so it plays once per visit.
+const themeScript = `try{var d=document.documentElement,t=localStorage.getItem("theme");if(t==="light"||t==="dark")d.dataset.theme=t;if(sessionStorage.getItem("intro"))d.classList.add("intro-seen");else{sessionStorage.setItem("intro","1");setTimeout(function(){d.classList.add("intro-seen")},2800)}}catch(e){}`;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
