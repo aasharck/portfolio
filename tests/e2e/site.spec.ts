@@ -1,17 +1,7 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type Page } from "@playwright/test";
 
-const PAGES = [
-  "/",
-  "/work/sitesgen",
-  "/fit",
-  "/ask",
-  "/how-it-works",
-  "/notes",
-  "/notes/experience",
-  "/evals",
-  "/break-it",
-];
+const PAGES = ["/", "/work/sitesgen", "/ask", "/how-it-works", "/notes", "/notes/experience", "/evals", "/break-it"];
 
 async function noHorizontalScroll(page: Page) {
   const overflow = await page.evaluate(
@@ -59,28 +49,7 @@ test("hero says what he does in the first screen", async ({ page }) => {
   await expect(page.locator(".tagline")).toContainText("A full-stack & AI engineer");
   await expect(page.locator(".tagline")).toBeInViewport();
   await expect(page.locator(".hero-bar").getByText("Available immediately")).toBeInViewport();
-  await expect(page.getByRole("link", { name: "Fit check" }).first()).toBeInViewport();
-});
-
-test("fit check: sample JD → cited report with an honest gap and a trace", async ({ page }, info) => {
-  await page.goto("/fit");
-  await page.getByRole("button", { name: "Use a sample JD" }).click();
-  await page.getByRole("button", { name: /Run the fit check/ }).click();
-  const report = page.getByRole("region", { name: "Fit report" });
-  await expect(report).toBeVisible();
-  await expect(report).toContainText("Mock mode");
-  await expect(report.locator(".reqs > li")).toHaveCount(8);
-  const k8s = report.locator(".reqs > li", { hasText: "Kubernetes" });
-  await expect(k8s).toContainText("no evidence");
-  await expect(k8s).toContainText("No direct evidence");
-  await expect(report.locator(".reqs > li", { hasText: "Experience with AWS" })).toContainText("source:");
-  await report.getByText("Under the hood").click();
-  await expect(report.locator(".hood table")).toBeVisible();
-  await expect(report.locator(".hood")).toContainText("search_corpus");
-  await page.screenshot({ path: `docs/screenshots/fit-report-${info.project.name}.png`, fullPage: true });
-  // citations land on a real section
-  await report.locator(".evidence a").first().click();
-  await expect(page).toHaveURL(/\/notes\/.+#.+/);
+  await expect(page.getByRole("navigation", { name: "Main" }).getByRole("link", { name: "Ask" })).toBeInViewport();
 });
 
 test("ask: cited answer, then a refusal for something not in the record", async ({ page }, info) => {
@@ -99,17 +68,6 @@ test("ask: cited answer, then a refusal for something not in the record", async 
 test.describe("with JavaScript off", () => {
   test.use({ javaScriptEnabled: false });
 
-  test("fit check still works as a plain form post", async ({ page }) => {
-    await page.goto("/fit");
-    await page
-      .locator("textarea[name=jd]")
-      .fill(
-        "Requirements:\n- Experience with AWS Lambda and API Gateway\n- Kubernetes in production\n- Strong PostgreSQL skills",
-      );
-    await page.getByRole("button", { name: /Run the fit check/ }).click();
-    await expect(page.getByRole("region", { name: "Fit report" })).toContainText("no evidence");
-  });
-
   test("ask still works and the trace opens without JS", async ({ page }) => {
     await page.goto("/ask");
     await page.locator("input[name=q]").fill("Tell me about TraccoAI");
@@ -120,10 +78,9 @@ test.describe("with JavaScript off", () => {
   });
 });
 
-test("input limits are enforced on the server", async ({ request }) => {
-  // The textarea caps length in the browser; this checks the page still renders for a short JD error path.
-  const res = await request.get("/fit");
-  expect(res.ok()).toBe(true);
+test("the old fit check URL redirects to the chat", async ({ page }) => {
+  await page.goto("/fit");
+  await expect(page).toHaveURL(/\/ask$/);
 });
 
 test("break it: an attack is refused, labelled with its guard, and counted", async ({ page }) => {

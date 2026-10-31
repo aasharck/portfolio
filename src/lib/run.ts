@@ -1,4 +1,4 @@
-// One guarded path for both AI features: input limits → rate limit → cache →
+// One guarded path for the chat: input limits → rate limit → cache →
 // budget reservation → run → settle → cache. Kept out of the server action so
 // tests can drive it with a memory store and a fake model.
 

@@ -37,10 +37,10 @@ export const metadata: Metadata = {
     template: "%s · Aashar CK",
   },
   description:
-    "Full-stack and AI engineer in Dubai, available immediately. I build web products end to end and the AI inside them. Paste a job description and get a cited fit report.",
+    "Full-stack and AI engineer in Dubai, available immediately. I build web products end to end and the AI inside them. Ask about my work and get answers with sources.",
   openGraph: {
     title: "Aashar CK: full-stack and AI engineer",
-    description: "Paste a job description and get an evidence-cited fit report. Every claim links to its source.",
+    description: "Ask about my work and get answers with sources. Every claim links to where it came from.",
     type: "website",
   },
 };
@@ -69,7 +69,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           </Link>
           <nav className="nav" aria-label="Main">
             <Link href="/#work">Work</Link>
-            <Link href="/fit">Fit check</Link>
+            <Link href="/ask">Ask</Link>
             <Link href="/cv">CV</Link>
             <Link href="/#contact">Contact</Link>
             <ThemeToggle />

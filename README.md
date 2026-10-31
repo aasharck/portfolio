@@ -1,6 +1,6 @@
 # Aashar CK: portfolio v2
 
-A portfolio that is itself a working AI system: paste a job description and get a cited, verified fit report; ask questions answered only from the corpus; open "Under the hood" on any answer for retrieved chunks, scores, tokens, cost and latency.
+A portfolio that is itself a working AI system: ask questions answered only from the corpus, with sources; open "Under the hood" on any answer for retrieved chunks, scores, tokens, cost and latency.
 
 ```bash
 npm install
@@ -10,5 +10,5 @@ npm run e2e        # Playwright (desktop + phone, axe)
 ```
 
 - Content: `content/*.md` (every fact, with its source). Built into `src/generated/corpus.json` before dev/build/test.
-- AI: `src/lib/{retrieval,ask,fit,llm,guard,run}.ts`. Env vars: `.env.example`.
+- AI: `src/lib/{retrieval,ask,llm,guard,run}.ts`. Env vars: `.env.example`.
 - Why things are the way they are: `DECISIONS.md`. Status and next steps: `NOTES.md`.

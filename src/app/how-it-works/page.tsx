@@ -8,13 +8,13 @@ import { MODELS } from "@/lib/llm";
 export const metadata: Metadata = {
   title: "Under the hood",
   description:
-    "How this site's fit check and chat work: build-time BM25 retrieval, verified citations, refusals, and a hard daily budget.",
+    "How this site's chat works: build-time BM25 retrieval, verified citations, refusals, and a hard daily budget.",
 };
 
 const STEPS = [
   {
     h: "One corpus",
-    p: `Every fact lives in content/*.md, one section per topic, each ending in a "Source:" line naming the CV, README or handoff note it came from. At build time the sections become ${corpus.chunks.length} chunks and a BM25 index. The pages, the fit check and the chat all read that one corpus.`,
+    p: `Every fact lives in content/*.md, one section per topic, each ending in a "Source:" line naming the CV, README or handoff note it came from. At build time the sections become ${corpus.chunks.length} chunks and a BM25 index. The pages and the chat all read that one corpus.`,
   },
   {
     h: "Retrieval at $0",
@@ -25,20 +25,16 @@ const STEPS = [
     p: `If the best chunk covers less than ${ANSWER_MIN_COVERAGE * 100}% of the question, the chat replies "I don't have evidence for that" and never calls a model. The model's own instructions repeat the rule, and a grounding guard in code discards any answer that has no valid [n] citation.`,
   },
   {
-    h: "Fit check: extract, search, judge, verify",
-    p: `The cheap model (${MODELS.extract}) extracts up to 12 requirements with structured output. Each requirement is searched separately. The stronger model (${MODELS.report}) judges each one only from its retrieved chunks and must quote verbatim. Code then checks every quote: the source must be one retrieved for that requirement and the quote must appear in it. A failed citation is dropped, and a verdict left without evidence becomes "no direct evidence".`,
-  },
-  {
     h: "Chat",
     p: `OpenAI ${MODELS.chat} (the newest small OpenAI model, $0.10 / $0.50 per million tokens) at low reasoning effort, with the top 5 chunks as numbered sources and a 120-word limit. About $0.0005 an answer.`,
   },
   {
     h: "Guardrails",
-    p: `Questions up to ${LIMITS.questionChars} characters, job descriptions up to ${LIMITS.jdChars.toLocaleString()}. Per network: ${LIMITS.rate.ask.max} questions and ${LIMITS.rate.fit.max} fit checks per 10 minutes. A hard daily budget of $${LIMITS.dailyBudgetUsd.toFixed(2)}: each call reserves its worst-case cost in Redis before it runs and settles to the real cost after, so concurrent requests can't overshoot. Repeat questions are served from a cache at no cost. Live mode stays off unless both the API key and the shared Redis store are configured.`,
+    p: `Questions up to ${LIMITS.questionChars} characters. Per network: ${LIMITS.rate.ask.max} questions per 10 minutes. A hard daily budget of $${LIMITS.dailyBudgetUsd.toFixed(2)}: each call reserves its worst-case cost in Redis before it runs and settles to the real cost after, so concurrent requests can't overshoot. Repeat questions are served from a cache at no cost. Live mode stays off unless both the API key and the shared Redis store are configured.`,
   },
   {
     h: "Mock mode",
-    p: "Without an API key the site runs in mock mode, labelled on every answer: rule-based requirement extraction and verdicts, and extractive answers that quote the best sentence of each matching chunk. Retrieval, citation checks, refusals, rate limits and the trace are the same code as live mode.",
+    p: "Without an API key the site runs in mock mode, labelled on every answer: extractive answers that quote the best sentence of each matching chunk. Retrieval, citation checks, refusals, rate limits and the trace are the same code as live mode.",
   },
 ];
 

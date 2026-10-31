@@ -81,12 +81,9 @@ export function getStore(): Store {
 
 export const LIMITS = {
   questionChars: 500,
-  jdChars: Number(process.env.MAX_JD_CHARS || 8000),
-  jdMinChars: 80,
   dailyBudgetUsd: Number(process.env.DAILY_BUDGET_USD || 0.5),
   rate: {
     ask: { max: Number(process.env.RATE_ASK_PER_10MIN || 12), windowSec: 600 },
-    fit: { max: Number(process.env.RATE_FIT_PER_10MIN || 4), windowSec: 600 },
   },
 };
 

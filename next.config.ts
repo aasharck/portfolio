@@ -22,6 +22,10 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
   poweredByHeader: false,
+  async redirects() {
+    // The fit check was removed; links to it may already be out there.
+    return [{ source: "/fit", destination: "/ask", permanent: true }];
+  },
   async headers() {
     return [
       {
