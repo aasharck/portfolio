@@ -1,10 +1,9 @@
-// The public eval: fixed questions and job descriptions with expected outcomes.
+// The public eval: fixed questions with expected outcomes.
 // One runner is shared by `npm run eval`, the /evals page (via the generated
 // JSON) and a unit test that fails the build if a score drops.
 
 import { ask, type Answer } from "./ask";
 import type { CorpusIndex } from "./corpus-build";
-import { assessFit, type FitReport, type Verdict } from "./fit";
 import type { Llm, ModeInfo } from "./llm";
 import { quoteIsInChunk } from "./retrieval";
 
@@ -12,12 +11,11 @@ export interface EvalCases {
   ask: { id: string; q: string; expect: "answer"; cite: string; include?: string }[];
   refuse: { id: string; q: string }[];
   attacks: { id: string; q: string }[];
-  fit: { id: string; title: string; jd: string; expect: { req: string; verdict: Verdict[] }[] }[];
 }
 
 export interface CaseResult {
   id: string;
-  kind: "answer" | "refuse" | "attack" | "fit";
+  kind: "answer" | "refuse" | "attack";
   input: string;
   pass: boolean;
   detail: string;
@@ -28,14 +26,12 @@ export interface CaseResult {
 export interface EvalReport {
   ranAt: string;
   mode: string;
-  models: { chat: string; report: string } | null;
+  models: { chat: string } | null;
   metrics: {
     retrievalHit: [number, number]; // expected section in the top 5
     answered: [number, number]; // answerable questions fully correct
     refused: [number, number]; // out-of-scope questions refused
     attacksStopped: [number, number];
-    fitVerdicts: [number, number]; // requirement verdicts matching expectation
-    citationsVerified: [number, number]; // fit evidence quotes found verbatim in their source
     grounded: [number, number]; // answered replies where every sentence is cited (and, in mock, verbatim)
     totalCostUsd: number;
     avgLatencyMs: number;
@@ -46,8 +42,7 @@ export interface EvalReport {
 interface Deps {
   mode: ModeInfo;
   index: CorpusIndex;
-  chatLlm?: Pick<Llm, "text">;
-  fitLlm?: Llm;
+  llm?: Llm;
 }
 
 const ratio = (xs: boolean[]): [number, number] => [xs.filter(Boolean).length, xs.length];
@@ -58,8 +53,6 @@ export async function runEvals(cases: EvalCases, deps: Deps): Promise<EvalReport
   const answered: boolean[] = [];
   const refused: boolean[] = [];
   const stopped: boolean[] = [];
-  const verdicts: boolean[] = [];
-  const verified: boolean[] = [];
   const grounded: boolean[] = [];
   /** Fabrication check: every sentence of an answer must carry a valid citation; in mock mode it
    *  must also appear word for word in a section it cites. */
@@ -74,16 +67,10 @@ export async function runEvals(cases: EvalCases, deps: Deps): Promise<EvalReport
       return cited.some((ch) => quoteIsInChunk(text, ch));
     });
   };
-  const askDeps = { mode: deps.mode, llm: deps.chatLlm, index: deps.index, reserve: async () => true };
+  const askDeps = { mode: deps.mode, llm: deps.llm, index: deps.index, reserve: async () => true };
 
-  const record = (
-    kind: CaseResult["kind"],
-    id: string,
-    input: string,
-    a: Answer | FitReport,
-    pass: boolean,
-    detail: string,
-  ) => results.push({ id, kind, input, pass, detail, costUsd: a.trace.costUsd, latencyMs: a.trace.latencyMs });
+  const record = (kind: CaseResult["kind"], id: string, input: string, a: Answer, pass: boolean, detail: string) =>
+    results.push({ id, kind, input, pass, detail, costUsd: a.trace.costUsd, latencyMs: a.trace.latencyMs });
 
   for (const c of cases.ask) {
     const a = await ask(c.q, askDeps);
@@ -130,36 +117,6 @@ export async function runEvals(cases: EvalCases, deps: Deps): Promise<EvalReport
     );
   }
 
-  for (const c of cases.fit) {
-    const r = await assessFit(c.jd, {
-      mode: deps.mode,
-      llm: deps.fitLlm,
-      index: deps.index,
-      reserve: async () => true,
-    });
-    const misses: string[] = [];
-    for (const e of c.expect) {
-      const item = r.items.find((i) => i.text.toLowerCase().includes(e.req.toLowerCase()));
-      const ok = !!item && e.verdict.includes(item.verdict);
-      verdicts.push(ok);
-      if (!ok) misses.push(`${e.req}: got ${item?.verdict ?? "not extracted"}, want ${e.verdict.join("/")}`);
-    }
-    for (const item of r.items) {
-      for (const ev of item.evidence) {
-        const chunk = deps.index.chunks.find((ch) => ch.id === ev.id);
-        verified.push(!!chunk && quoteIsInChunk(ev.quote, chunk));
-      }
-    }
-    record(
-      "fit",
-      c.id,
-      c.title,
-      r,
-      misses.length === 0,
-      misses.join("; ") || `${c.expect.length}/${c.expect.length} verdicts as expected`,
-    );
-  }
-
   const total = results.reduce((s, r) => s + r.costUsd, 0);
   return {
     ranAt: new Date().toISOString(),
@@ -170,8 +127,6 @@ export async function runEvals(cases: EvalCases, deps: Deps): Promise<EvalReport
       answered: ratio(answered),
       refused: ratio(refused),
       attacksStopped: ratio(stopped),
-      fitVerdicts: ratio(verdicts),
-      citationsVerified: ratio(verified),
       grounded: ratio(grounded),
       totalCostUsd: total,
       avgLatencyMs: Math.round(results.reduce((s, r) => s + r.latencyMs, 0) / Math.max(1, results.length)),

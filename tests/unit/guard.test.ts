@@ -30,12 +30,12 @@ describe("rate limit", () => {
   it("allows the limit then blocks within the window, per IP", async () => {
     const store = memoryStore();
     const now = 1_000_000_000_000;
-    for (let i = 0; i < 4; i++) expect((await rateLimit(store, "fit", "1.1.1.1", now)).ok).toBe(true);
-    const blocked = await rateLimit(store, "fit", "1.1.1.1", now);
+    for (let i = 0; i < 12; i++) expect((await rateLimit(store, "ask", "1.1.1.1", now)).ok).toBe(true);
+    const blocked = await rateLimit(store, "ask", "1.1.1.1", now);
     expect(blocked.ok).toBe(false);
     expect(blocked.retryAfterSec).toBeGreaterThan(0);
-    expect((await rateLimit(store, "fit", "2.2.2.2", now)).ok).toBe(true);
-    expect((await rateLimit(store, "fit", "1.1.1.1", now + 600_000)).ok).toBe(true);
+    expect((await rateLimit(store, "ask", "2.2.2.2", now)).ok).toBe(true);
+    expect((await rateLimit(store, "ask", "1.1.1.1", now + 600_000)).ok).toBe(true);
   });
 });
 
@@ -74,16 +74,10 @@ describe("daily budget", () => {
 });
 
 describe("costs", () => {
-  it("prices by model and assumes the dearest for unknown ids", () => {
-    expect(costUsd({ model: "claude-haiku-5-5", inputTokens: 1e6, outputTokens: 1e6, cacheReadTokens: 0 })).toBeCloseTo(
-      0.6,
-    );
-    expect(costUsd({ model: "claude-sonnet-5-5", inputTokens: 1e6, outputTokens: 0, cacheReadTokens: 0 })).toBeCloseTo(
-      2,
-    );
+  it("prices by model and assumes an expensive one for unknown ids", () => {
     expect(costUsd({ model: "gpt-6-luna", inputTokens: 1e6, outputTokens: 1e6, cacheReadTokens: 0 })).toBeCloseTo(0.6);
-    expect(costUsd({ model: "claude-new", inputTokens: 1e6, outputTokens: 0, cacheReadTokens: 0 })).toBeCloseTo(4);
-    expect(worstCaseUsd("claude-haiku-5-5", 3000, 600)).toBeCloseTo((1000 * 0.1 + 600 * 0.5) / 1e6);
+    expect(costUsd({ model: "gpt-new", inputTokens: 1e6, outputTokens: 0, cacheReadTokens: 0 })).toBeCloseTo(4);
+    expect(worstCaseUsd("gpt-6-luna", 3000, 600)).toBeCloseTo((1000 * 0.1 + 600 * 0.5) / 1e6);
   });
 });
 
@@ -91,22 +85,18 @@ describe("mode", () => {
   it("stays in mock mode without a key, or with a key but no budget store", () => {
     const env = { ...process.env };
     try {
-      delete process.env.ANTHROPIC_API_KEY;
       delete process.env.OPENAI_API_KEY;
       delete process.env.MOCK_LLM;
-      expect(currentMode("fit").mode).toBe("mock");
-      process.env.ANTHROPIC_API_KEY = "sk-test";
-      delete process.env.UPSTASH_REDIS_REST_URL;
-      expect(currentMode("fit")).toEqual({ mode: "mock", reason: expect.stringMatching(/budget store/) });
       process.env.UPSTASH_REDIS_REST_URL = "https://x";
       process.env.UPSTASH_REDIS_REST_TOKEN = "t";
-      expect(currentMode("fit").mode).toBe("live");
-      // chat needs its own key: the Anthropic key doesn't switch it on
-      expect(currentMode("ask")).toEqual({ mode: "mock", reason: "no OPENAI_API_KEY" });
-      process.env.OPENAI_API_KEY = "sk-openai-test";
-      expect(currentMode("ask").mode).toBe("live");
+      expect(currentMode()).toEqual({ mode: "mock", reason: "no OPENAI_API_KEY" });
+      process.env.OPENAI_API_KEY = "sk-test";
+      expect(currentMode().mode).toBe("live");
+      delete process.env.UPSTASH_REDIS_REST_URL;
+      expect(currentMode()).toEqual({ mode: "mock", reason: expect.stringMatching(/budget store/) });
+      process.env.UPSTASH_REDIS_REST_URL = "https://x";
       process.env.MOCK_LLM = "1";
-      expect(currentMode("ask").mode).toBe("mock");
+      expect(currentMode().mode).toBe("mock");
     } finally {
       process.env = env;
     }
@@ -136,8 +126,8 @@ describe("guarded run", () => {
   it("returns a plain message when rate limited", async () => {
     const store = memoryStore();
     const run = async () => ({ trace: trace(0) });
-    for (let i = 0; i < 4; i++) await guarded({ route: "fit", input: `jd ${i}`, ip: "9", store, mode, run });
-    const r = await guarded({ route: "fit", input: "jd 5", ip: "9", store, mode, run });
+    for (let i = 0; i < 12; i++) await guarded({ route: "ask", input: `q ${i}`, ip: "9", store, mode, run });
+    const r = await guarded({ route: "ask", input: "q 12", ip: "9", store, mode, run });
     expect(r).toEqual({ ok: false, message: expect.stringMatching(/Too many requests/) });
   });
 
@@ -147,7 +137,7 @@ describe("guarded run", () => {
       if (!(await reserve(99))) throw new Error("daily budget reached");
       return { trace: trace(0) };
     };
-    const r = await guarded({ route: "fit", input: "jd", ip: "1", store, mode, run });
+    const r = await guarded({ route: "ask", input: "q", ip: "1", store, mode, run });
     expect(r).toEqual({ ok: false, message: expect.stringMatching(/budget/) });
   });
 

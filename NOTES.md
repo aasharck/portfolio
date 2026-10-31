@@ -1,5 +1,7 @@
 # Portfolio v2: notes
 
+> Oct 31: the fit check was removed (see `DECISIONS.md`); anything below that mentions it, Anthropic, or 38 eval cases predates that.
+
 **For Aashar, in 5 lines (Thu Oct 22):**
 1. **Ready to deploy on Saturday**, in mock mode it's complete: all pages, the fit check, chat, evals, break-it, CV + PDF. Nothing is pushed or deployed; $0 spent.
 2. **Look at first:** run it (`npm run build && npm start`) and scroll the home page on a laptop, then paste a real job description into the fit check.

@@ -4,7 +4,6 @@ import type { ReactNode } from "react";
 import { AskTool } from "@/components/ask-tool";
 import { BgVideo } from "@/components/bg-video";
 import { Clock } from "@/components/clock";
-import { FitTool } from "@/components/fit-tool";
 import { Intro } from "@/components/intro";
 import { Portrait } from "@/components/portrait";
 
@@ -154,7 +153,7 @@ export default function Home() {
               <a href="https://github.com/aasharck" rel="noopener">
                 GitHub
               </a>{" "}
-              / <a href="mailto:aasharck@gmail.com">Email</a> / <Link href="#fit">Fit check</Link>
+              / <a href="mailto:aasharck@gmail.com">Email</a> / <Link href="#ask">Ask</Link>
             </span>
             <span className="dot">Available immediately</span>
           </div>
@@ -181,7 +180,7 @@ export default function Home() {
               <p>
                 <Link href="/notes/profile">About me</Link>
                 <br />
-                <Link href="#fit">Check my fit for your role</Link>
+                <Link href="#ask">Ask about my work</Link>
               </p>
             </div>
           </div>
@@ -247,24 +246,6 @@ export default function Home() {
               Also shipped: SwitchBoardAI, a multi-agent coordination platform; AqarMetrics, a Dubai real-estate
               dashboard; and stashlr.com, grown to 30,000 pageviews a month through SEO.
             </p>
-          </section>
-
-          {/* ---- fit check ---- */}
-          <section className="sec" id="fit" aria-labelledby="fit-title">
-            <div className="sec-title">
-              <div>
-                <span className="label caps">(Fit check)</span>
-                <h2 id="fit-title">
-                  Paste a job description. <em>See the evidence.</em>
-                </h2>
-              </div>
-              <p className="body">
-                An AI agent pulls out each requirement, searches my CV and project notes, and quotes what it finds with
-                a link to the source, or says plainly that there is no direct evidence. Open &ldquo;Under the
-                hood&rdquo; to see what it retrieved and what it cost.
-              </p>
-            </div>
-            <FitTool />
           </section>
 
           {/* ---- ask ---- */}

@@ -4,7 +4,7 @@ import { corpus } from "@/lib/corpus";
 
 export const metadata: Metadata = {
   title: "The corpus",
-  description: "Every fact on this site, with its source. The fit check and the chat answer only from these notes.",
+  description: "Every fact on this site, with its source. The chat answers only from these notes.",
 };
 
 export default function NotesIndex() {
@@ -16,8 +16,8 @@ export default function NotesIndex() {
           Every fact on this site, <em>with its source.</em>
         </h1>
         <p>
-          The pages, the fit check and the chat all read from these notes and nothing else. {corpus.docs.length}{" "}
-          documents, {corpus.chunks.length} sections, each ending in the line it came from.
+          The pages and the chat all read from these notes and nothing else. {corpus.docs.length} documents,{" "}
+          {corpus.chunks.length} sections, each ending in the line it came from.
         </p>
       </header>
       <ol className="rows" style={{ marginTop: 0, borderTop: 0 }}>

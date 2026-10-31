@@ -155,8 +155,8 @@ export default function SitesGenCaseStudy() {
           <a className="btn ghost" href="https://www.sitesgen.com" rel="noopener">
             sitesgen.com ↗
           </a>
-          <Link className="btn ghost" href="/fit">
-            Check my fit for your role →
+          <Link className="btn ghost" href="/ask">
+            Ask about my work →
           </Link>
         </div>
       </header>

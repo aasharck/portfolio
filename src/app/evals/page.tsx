@@ -6,7 +6,7 @@ import type { CaseResult, EvalReport } from "@/lib/eval";
 export const metadata: Metadata = {
   title: "Evals",
   description:
-    "The public test set behind this site's AI: answers, refusals, prompt-injection attempts and job-description verdicts, with every failure shown.",
+    "The public test set behind this site's AI: answers, refusals and prompt-injection attempts, with every failure shown.",
 };
 
 // The page shows the last live run when one has been committed, otherwise the mock run.
@@ -17,7 +17,6 @@ const KIND: Record<CaseResult["kind"], string> = {
   answer: "Should answer, citing the right section",
   refuse: "Should refuse: not in the record",
   attack: "Prompt injection: should not comply",
-  fit: "Job description: verdict per requirement",
 };
 
 function Metric({ label, value, note }: { label: string; value: [number, number]; note: string }) {
@@ -48,13 +47,12 @@ export default function EvalsPage() {
           Evals: <em>what passes, and what doesn&apos;t.</em>
         </h1>
         <p>
-          A fixed test set runs against the same code as the chat and the fit check before every build. A score that
-          drops fails the build. Failures are listed below, not hidden.
+          A fixed test set runs against the same code as the chat before every build. A score that drops fails the
+          build. Failures are listed below, not hidden.
         </p>
         <p className="caps mono muted">
           Last run {ran} · {report.mode} mode
-          {report.models ? ` · ${report.models.chat} / ${report.models.report}` : " · no model called, $0"} ·{" "}
-          {report.cases.length} cases
+          {report.models ? ` · ${report.models.chat}` : " · no model called, $0"} · {report.cases.length} cases
         </p>
       </header>
 
@@ -75,18 +73,13 @@ export default function EvalsPage() {
             value={m.attacksStopped}
             note="Prompt injections and false premises refused."
           />
-          <Metric label="Fit verdicts" value={m.fitVerdicts} note="Requirement verdicts that match the expected one." />
-          <Metric
-            label="Citations verified"
-            value={m.citationsVerified}
-            note="Evidence quotes found word for word in their source."
-          />
+          <Metric label="Grounded" value={m.grounded} note="Answers where every sentence carries a valid citation." />
         </div>
         {report.mode === "mock" && (
           <p className="body muted eval-note">
-            These are mock-mode scores: rule-based answers and verdicts, no model, $0. Retrieval, refusals, citation
-            checks and the guards are the real code. The live run with the real models comes before launch, and its
-            scores will replace these.
+            These are mock-mode scores: extractive answers, no model, $0. Retrieval, refusals, citation checks and the
+            guards are the real code. The live run with the real models comes before launch, and its scores will replace
+            these.
           </p>
         )}
       </section>
@@ -118,7 +111,7 @@ export default function EvalsPage() {
         </section>
       )}
 
-      {(["answer", "refuse", "attack", "fit"] as const).map((kind) => (
+      {(["answer", "refuse", "attack"] as const).map((kind) => (
         <section key={kind} className="sec eval-group" aria-labelledby={`k-${kind}`}>
           <h2 id={`k-${kind}`} className="eval-h">
             {KIND[kind]}
@@ -160,13 +153,8 @@ export default function EvalsPage() {
             injections must end in the refusal. The trace names the guard that stopped each one.
           </li>
           <li>
-            <strong>Fit verdicts:</strong> five job descriptions (AI engineer, full-stack Next.js, data engineer,
-            frontend, and a deliberate poor fit: native iOS). Each requirement has an accepted verdict set, e.g.
-            Kubernetes must be &ldquo;no evidence&rdquo;.
-          </li>
-          <li>
-            <strong>Zero fabrication:</strong> every quote in a fit report is checked word for word against the section
-            it links to, and every sentence of an answer must carry a citation. A failure here fails the build.
+            <strong>Zero fabrication:</strong> every sentence of an answer must carry a citation, and in mock mode it
+            must also appear word for word in a section it cites. A failure here fails the build.
           </li>
         </ul>
       </section>

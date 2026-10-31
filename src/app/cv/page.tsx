@@ -44,8 +44,8 @@ export default function CvPage() {
           <a className="btn" href="/aashar-ck-cv.pdf" download>
             Download PDF
           </a>
-          <Link className="btn ghost" href="/fit">
-            Or check my fit for your role
+          <Link className="btn ghost" href="/ask">
+            Or ask about my work
           </Link>
         </p>
       </header>
