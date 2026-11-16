@@ -41,6 +41,8 @@ describe("search", () => {
     ["What did he find in smart-contract audits?", "security#competitive-smart-contract-audits"],
     ["Experience with AWS Lambda and API Gateway", "skills#cloud-and-devops"],
     ["Tell me about TraccoAI", "traccoai#"],
+    ["How does HypeSlide remake a viral slideshow?", "hypeslide#"],
+    ["What is the Hareef football app?", "hareef#"],
     ["Where did he study?", "profile#education"],
     ["Has he worked with Python?", "skills#back-end-and-ai"],
   ])("%s → %s", (q, prefix) => {

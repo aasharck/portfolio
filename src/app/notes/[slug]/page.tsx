@@ -34,9 +34,9 @@ export default async function NotePage(props: PageProps<"/notes/[slug]">) {
             </a>
           </p>
         )}
-        {slug === "sitesgen" && (
+        {["sitesgen", "hypeslide", "hareef"].includes(slug) && (
           <p className="mono hint">
-            <Link href="/work/sitesgen">Read it as a case study, with the architecture diagram →</Link>
+            <Link href={`/work/${slug}`}>Read it as a case study, with the architecture diagram →</Link>
           </p>
         )}
       </header>

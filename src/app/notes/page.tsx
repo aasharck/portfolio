@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { corpus } from "@/lib/corpus";
 
+const CASE_STUDIES = new Set(["sitesgen", "hypeslide", "hareef"]);
+
 export const metadata: Metadata = {
   title: "The corpus",
   description: "Every fact on this site, with its source. The chat answers only from these notes.",
@@ -25,7 +27,7 @@ export default function NotesIndex() {
           <li key={d.slug}>
             <span className="idx">{String(i + 1).padStart(2, "0")}</span>
             <h2 style={{ fontSize: "1.3rem" }}>
-              <Link href={d.slug === "sitesgen" ? "/work/sitesgen" : `/notes/${d.slug}`}>{d.title}</Link>
+              <Link href={CASE_STUDIES.has(d.slug) ? `/work/${d.slug}` : `/notes/${d.slug}`}>{d.title}</Link>
             </h2>
             <p>{d.summary}</p>
             <span className="go">{corpus.chunks.filter((c) => c.doc === d.slug).length} sections</span>

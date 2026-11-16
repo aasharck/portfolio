@@ -1,7 +1,7 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type Page } from "@playwright/test";
 
-const PAGES = ["/", "/work/sitesgen", "/ask", "/how-it-works", "/notes", "/notes/experience", "/evals", "/break-it"];
+const PAGES = ["/", "/work/sitesgen", "/work/hypeslide", "/work/hareef", "/ask", "/how-it-works", "/notes", "/notes/experience", "/evals", "/break-it"];
 
 async function noHorizontalScroll(page: Page) {
   const overflow = await page.evaluate(

@@ -8,7 +8,8 @@ import { Hood } from "./hood";
 
 const ASK_SUGGESTIONS = [
   "What does a SitesGen site cost in model spend?",
-  "How do the SitesGen agents hand off work?",
+  "How does HypeSlide remake a viral slideshow?",
+  "How does Hareef protect its AI calls without accounts?",
   "Has he built a RAG system?",
   "What did he find in smart-contract audits?",
   "Does he know Kubernetes?",
