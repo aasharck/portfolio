@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 /**
  * Page motion, modelled on art-yakushev.com: Lenis smooth scroll, GSAP ScrollTrigger,
@@ -25,6 +25,33 @@ export function Motion() {
     window.addEventListener("themechange", onTheme);
     return () => window.removeEventListener("themechange", onTheme);
   }, []);
+
+  // Back/forward should keep the browser's restored position; every other route change
+  // starts at the top (or at its #anchor).
+  const popped = useRef(false);
+  const firstRender = useRef(true);
+  useEffect(() => {
+    const onPop = () => (popped.current = true);
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  }, []);
+
+  // Runs before paint on every route change. Lenis keeps its own scroll target, so without
+  // this the new page opens at the old page's offset (Next's scroll-to-top gets overridden).
+  useLayoutEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false;
+      return;
+    }
+    if (popped.current) {
+      popped.current = false;
+      return;
+    }
+    const id = decodeURIComponent(location.hash.slice(1));
+    const target = id ? document.getElementById(id) : null;
+    if (target) target.scrollIntoView({ behavior: "instant" });
+    else window.scrollTo({ top: 0, behavior: "instant" });
+  }, [pathname]);
 
   useEffect(() => {
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
