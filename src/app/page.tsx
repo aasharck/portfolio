@@ -34,6 +34,39 @@ const WORK: Work[] = [
     id: "00-2",
     title: (
       <>
+        Hype<em>Slide</em>
+      </>
+    ),
+    cats: "AI agents · SaaS · MCP",
+    year: "2026 · Founder",
+    text: "Finds the TikTok slideshows going viral in a product's niche and remakes them for that product, layout and all. Also usable from Claude Code over MCP.",
+    media: { src: "/work/hypeslide-home.jpg", alt: "HypeSlide landing page", w: 1400, h: 1050 },
+    links: [
+      { href: "/work/hypeslide", label: "Case study" },
+      { href: "https://hypeslide.com", label: "Visit site", external: true },
+    ],
+  },
+  {
+    id: "00-3",
+    title: "Hareef",
+    cats: "Mobile app · AI coach · iOS",
+    year: "2026 · Solo build",
+    text: "An AI football coach for young players in the Gulf, in Arabic and English: a plan for their position, a coach to ask anything, and video clip reviews.",
+    media: {
+      src: "/work/hareef-screens.jpg",
+      alt: "Hareef App Store screenshots: player card, AI coach and clip review",
+      w: 1400,
+      h: 1050,
+    },
+    links: [
+      { href: "/work/hareef", label: "Case study" },
+      { href: "https://apps.apple.com/app/id6832931407", label: "App Store", external: true },
+    ],
+  },
+  {
+    id: "00-4",
+    title: (
+      <>
         Tracco<em>AI</em>
       </>
     ),
@@ -47,7 +80,7 @@ const WORK: Work[] = [
     ],
   },
   {
-    id: "00-3",
+    id: "00-5",
     title: (
       <>
         Support <em>agent</em>
@@ -60,7 +93,7 @@ const WORK: Work[] = [
     links: [{ href: "/notes/ai-support-agent", label: "Notes" }],
   },
   {
-    id: "00-4",
+    id: "00-6",
     title: (
       <>
         RLS <em>check</em>
@@ -194,8 +227,8 @@ export default function Home() {
               <dd>8</dd>
             </div>
             <div>
-              <dt className="caps">AI SaaS products live</dt>
-              <dd>2</dd>
+              <dt className="caps">AI products live</dt>
+              <dd>4</dd>
             </div>
           </dl>
         </section>
@@ -205,7 +238,7 @@ export default function Home() {
           <section className="all" id="work" aria-labelledby="work-title">
             <div className="all-head">
               <h2 id="work-title">
-                All <em>(04)</em>
+                All <em>({String(WORK.length).padStart(2, "0")})</em>
               </h2>
               <p className="caps">
                 Built and shipped,

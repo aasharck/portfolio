@@ -56,6 +56,8 @@ export default function CvPage() {
       <h2 className="cv-h">Projects</h2>
       <Section id="sitesgen#what-it-is" title="SitesGen · founder and sole engineer · 2026–" />
       <Section id="sitesgen#cost-per-site" title="SitesGen · eight agents, cost per site" />
+      <Section id="hypeslide#what-it-is" title="HypeSlide · founder and sole engineer · 2026–" />
+      <Section id="hareef#what-it-is" title="Hareef · iOS app, solo build · 2026–" />
       <Section id="traccoai#what-it-is" title="TraccoAI · sole architect and engineer · 2025–" />
       <Section id="ai-support-agent#what-it-is" title="AI support agent · demo" />
       <Section id="supabase-rls-check#what-it-is" title="supabase-rls-check · CLI" />

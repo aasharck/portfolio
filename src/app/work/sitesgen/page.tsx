@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Prose } from "@/components/prose";
-import { chunksOf } from "@/lib/corpus";
+import { Arrowhead, CaseSections, DIAGRAM_CSS } from "@/components/case-sections";
 
 export const metadata: Metadata = {
   title: "SitesGen case study",
@@ -32,30 +31,8 @@ function Diagram() {
           planner. All jobs run from a Postgres queue drained by a worker, and every table is scoped to a workspace by
           row-level security.
         </desc>
-        <style>{`
-          .dg-box{fill:var(--bg);stroke:var(--ink);stroke-width:1.2}
-          .dg-hot{fill:var(--red);stroke:var(--red);stroke-width:1.2}
-          .dg-t{fill:var(--ink);font:500 13px var(--font-mono),monospace}
-          .dg-s{fill:var(--muted);font:11px var(--font-mono),monospace}
-          .dg-line{stroke:var(--ink);stroke-width:1.2;fill:none}
-          .dg-dash{stroke:var(--muted);stroke-width:1.2;fill:none;stroke-dasharray:4 3}
-          .dg-gate{fill:var(--ink)}
-          .dg-acc{fill:#fff}
-          .dg-band{fill:var(--panel-2);stroke:var(--rule)}
-        `}</style>
-        <defs>
-          <marker
-            id="arr"
-            viewBox="0 0 10 10"
-            refX="9"
-            refY="5"
-            markerWidth="7"
-            markerHeight="7"
-            orient="auto-start-reverse"
-          >
-            <path d="M0 0L10 5L0 10z" style={{ fill: "var(--ink)" }} />
-          </marker>
-        </defs>
+        <style>{DIAGRAM_CSS}</style>
+        <Arrowhead />
         {STAGES.map((s, i) => (
           <g key={s.name}>
             <rect className={s.name === "Build" ? "dg-hot" : "dg-box"} x={s.x} y={s.y} width="125" height="56" />
@@ -116,8 +93,6 @@ function Diagram() {
 }
 
 export default function SitesGenCaseStudy() {
-  const chunks = chunksOf("sitesgen");
-  const byAnchor = Object.fromEntries(chunks.map((c) => [c.anchor, c]));
   const order = [
     "what-it-is",
     "the-eight-agents",
@@ -132,11 +107,6 @@ export default function SitesGenCaseStudy() {
     "stack",
     "what-he-d-do-next",
   ];
-  const ordered = [
-    ...order.map((a) => byAnchor[a]).filter(Boolean),
-    ...chunks.filter((c) => !order.includes(c.anchor)),
-  ];
-
   return (
     <article>
       <header className="doc-head">
@@ -216,19 +186,7 @@ export default function SitesGenCaseStudy() {
         </div>
       </section>
 
-      {ordered.map((c, i) => (
-        <section key={c.id} id={c.anchor} className="doc-sec" aria-labelledby={`h-${c.anchor}`}>
-          <div className="rail">
-            <b>{String(i + 1).padStart(2, "0")}</b>
-            {c.heading.split(/[:,]/)[0]}
-          </div>
-          <div>
-            <h2 id={`h-${c.anchor}`}>{c.heading}</h2>
-            <Prose text={c.text} />
-            <p className="source">Source: {c.source}</p>
-          </div>
-        </section>
-      ))}
+      <CaseSections slug="sitesgen" order={order} />
     </article>
   );
 }
